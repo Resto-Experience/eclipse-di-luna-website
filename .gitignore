@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# os
+.DS_Store
+
+# QA / scraping artifacts (local-only tooling outputs)
+/extracted
+/firecrawl-data
+
+# Abandoned SDD docs (kept locally for reference)
+/openspec
