@@ -5,11 +5,11 @@ export const buckhead: Location = {
   name: 'Eclipse di Luna - Buckhead',
   subtitle: 'Miami Circle',
   description:
-    'Eclipse di Luna Buckhead on Miami Circle offers an upscale tapas experience in Atlanta\'s premier shopping and dining destination.',
+    "Opened in 1997, Eclipse di Luna Buckhead is the original home of Eclipse and the restaurant that introduced Atlanta to the tapas experience. What began as a bold, playful concept quickly became a city landmark, known for its whimsical décor, artsy personality, and infectious energy.\n\nThis Miami Circle location remains the heart of the brand — festive, colorful, and unapologetically fun. Live Latin music seven nights a week, salsa dancing, handcrafted cocktails, and shareable Spanish tapas create an atmosphere that feels more like a celebration than a dinner reservation. With free parking and a cozy, welcoming vibe, Buckhead continues to be a favorite gathering place nearly three decades later.\n\nIt's the Eclipse where it all started — and the spirit is still alive every night.",
   tagline:
-    'In Buckhead, Eclipse di Luna provides a vibrant atmosphere, tapas, and a great wine list for a memorable dining.',
-  heroImage: '/images/hero/buckhead.jpg',
-  cardImage: '/images/locations/buckhead.jpg',
+    'The original Eclipse since 1997 — tapas, live Latin music seven nights a week, and a festive, colorful atmosphere.',
+  heroImage: '/images/locations/buckhead/hero-bg.avif',
+  cardImage: '/images/locations/buckhead.avif',
   contact: {
     phone: '(470) 664-1188',
     email: 'info@eclipsediluna.com',
@@ -39,18 +39,28 @@ export const buckhead: Location = {
   ],
   entertainment: {
     title: 'Entertainment',
-    description: 'Live music and entertainment at Eclipse di Luna Buckhead.',
+    description: 'Live Latin music and entertainment at Eclipse di Luna Buckhead.',
     items: [
-      { day: 'Thursday', type: 'Live Music', time: '8:00 PM' },
-      { day: 'Friday', type: 'Live Music', time: '8:00 PM' },
-      { day: 'Saturday', type: 'Live Music', time: '8:00 PM' },
+      {
+        day: 'Monday to Friday',
+        type: 'Live Music',
+        time: '05:30 pm - 08:30 pm',
+        image: '/images/locations/buckhead/live-music.avif',
+      },
+      {
+        day: '1st & 3rd Saturday of the month',
+        type: 'Latin Saturday Nights',
+        time: 'DJ set: 10:00 PM – 2:00 AM',
+        image: '/images/locations/buckhead/latin-saturday.avif',
+      },
     ],
   },
   deals: [
     {
       title: 'Happy Hour',
-      description: 'Monday–Friday 4–7pm: discounted tapas and cocktails.',
-      day: 'Monday–Friday',
+      description: 'Monday – Thursday, 04:00pm – 06:00pm',
+      day: 'Monday – Thursday',
+      image: '/images/locations/shared/happy-hour.avif',
     },
   ],
 };

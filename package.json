@@ -11,10 +11,11 @@
   "dependencies": {
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
+    "caniuse-lite": "^1.0.30001790",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "jsdom": "^29.0.2",
-    "next": "16.2.3",
+    "next": "^16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "vitest": "^4.1.4"

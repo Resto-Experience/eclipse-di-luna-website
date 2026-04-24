@@ -1,79 +1,52 @@
 import Image from 'next/image';
 
-const FONT_BODY = 'var(--font-nunito-sans), "Nunito Sans", sans-serif';
-const FONT_HEADING = '"Swarsh Daisy", var(--font-display), Georgia, serif';
-
 export function InstagramSection() {
   return (
-    <section className="relative py-[60px]" style={{ backgroundColor: '#FEF8EC' }}>
-      <div className="max-w-[1280px] mx-auto px-9">
+    // Section has big bottom padding to create overlap space for the newsletter card (rendered by Footer).
+    <section
+      className="relative pt-[60px] pb-[230px] lg:pt-[72px] lg:pb-[300px]"
+      style={{ backgroundColor: '#FEF8EC' }}
+    >
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-9">
+        {/* Card: pattern bg, phones stuck to bottom, text vertically centered.
+            Mobile: stacked (text top w/ 48px top padding, phones below touching bottom edge).
+            Desktop: horizontal (phones left-bottom, text right-center). */}
         <div
-          className="relative rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-8 items-center px-8 lg:px-16 py-12"
+          className="relative overflow-hidden rounded-[25px] lg:rounded-[8px] flex flex-col lg:flex-row min-h-[602px] lg:min-h-[406px]"
           style={{
-            backgroundColor: '#1f1815',
-            backgroundImage: 'url(/images/textures/cream-pattern.svg)',
-            backgroundSize: '300px',
-            backgroundBlendMode: 'multiply',
+            backgroundColor: '#1F1815',
+            backgroundImage: 'url(/images/instagram/ig-card-bg.avif)',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'repeat',
           }}
         >
-          {/* Phones image — hidden on mobile (live uses a different layout there) */}
-          <div className="hidden lg:flex justify-center lg:justify-start">
+          {/* Phones image — mobile: bottom (order-2); desktop: left column stuck to bottom-left with left padding */}
+          <div className="order-2 lg:order-1 lg:w-1/2 flex justify-center lg:justify-start lg:items-end lg:pl-12">
             <Image
               src="/images/instagram/phones.avif"
               alt="Eclipse di Luna Instagram"
-              width={500}
-              height={433}
-              className="w-full max-w-[450px] h-auto"
+              width={1876}
+              height={1624}
+              className="block w-full max-w-[460px] h-auto"
             />
           </div>
 
-          {/* Right: Text + CTA — centered on mobile */}
-          <div className="flex flex-col gap-4 items-center lg:items-start text-center lg:text-left">
-            <h2
-              className="leading-[1.1]"
-              style={{
-                fontFamily: FONT_HEADING,
-                fontSize: 'clamp(36px, 4vw, 48px)',
-                color: '#FEFAF5',
-                fontWeight: 400,
-              }}
-            >
+          {/* Text + CTA — mobile: top with 48px padding; desktop: right half, vertically centered */}
+          <div className="order-1 lg:order-2 lg:w-1/2 flex flex-col gap-3 items-center lg:items-start text-center lg:text-left px-6 pt-12 pb-0 lg:px-12 lg:py-12 lg:justify-center">
+            <h2 className="text-display-md" style={{ color: '#FEFAF5' }}>
               We are on Instagram
             </h2>
-            <p
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: '22px',
-                color: '#F4CE9F',
-                fontWeight: 400,
-                lineHeight: 1.4,
-              }}
-            >
+            <p className="text-body-lg" style={{ color: '#F4CE9F' }}>
               Stay tuned for daily food and drinks, info about events and more…
             </p>
-            <p
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: '24px',
-                color: '#FEFAF5',
-                fontWeight: 400,
-              }}
-            >
+            <p className="text-body-lg" style={{ color: '#FEFAF5' }}>
               @eclipsediluna
             </p>
-
             <a
               href="https://www.instagram.com/eclipsediluna/?hl=en"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 h-[46px] px-5 rounded-full uppercase font-semibold text-base cursor-pointer hover:opacity-90 transition-opacity self-center lg:self-start mt-2"
-              style={{
-                backgroundColor: '#780C06',
-                color: '#F4CE9F',
-                border: '1px solid #F4CE9F',
-                fontFamily: FONT_BODY,
-                fontWeight: 600,
-              }}
+              className="text-cta-pill inline-flex items-center justify-center gap-2 h-[46px] px-5 rounded-full cursor-pointer self-center lg:self-start mt-2 bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
             >
               <Image src="/images/icons/instagram-white.svg" alt="" width={20} height={20} />
               Follow Us

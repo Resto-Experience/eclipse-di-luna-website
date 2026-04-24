@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import { REVIEWS } from '@/data/reviews';
 
-const FONT_BODY = 'var(--font-nunito-sans), "Nunito Sans", sans-serif';
+const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
+const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
 const FONT_HEADING = '"Swarsh Daisy", var(--font-display), Georgia, serif';
 
 // Triple the reviews for seamless infinite marquee
@@ -12,7 +13,7 @@ const TRIPLED = [...REVIEWS, ...REVIEWS, ...REVIEWS];
 export function ReviewsSection() {
   return (
     <section className="relative py-[80px]" style={{ backgroundColor: '#FEF8EC' }}>
-      <div className="max-w-[1280px] mx-auto px-9">
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-9">
         {/* Heading group */}
         <div className="flex flex-col items-center text-center gap-3 mb-10">
           {/* Moon decoration */}

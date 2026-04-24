@@ -49,3 +49,15 @@ next-env.d.ts
 
 # Abandoned SDD docs (kept locally for reference)
 /openspec
+
+# QA / inspection artifacts
+*-inspection/
+/*.png
+/blog-*.png
+/jobs-*.png
+/contact-*.png
+/live-*.png
+/mobile-*.png
+
+# Vercel
+.vercel

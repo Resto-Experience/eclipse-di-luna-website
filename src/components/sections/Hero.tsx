@@ -12,7 +12,7 @@ const GOOGLE_MAPS_LINKS: Record<string, string> = {
 
 export function Hero() {
   return (
-    <section className="relative h-screen min-h-[700px] flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative h-dvh min-h-[700px] flex flex-col items-center justify-center overflow-hidden">
       {/* Video background */}
       <video
         autoPlay
@@ -29,7 +29,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-black/70" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center gap-4 px-6 pb-12 w-full max-w-[1180px]">
+      <div className="relative z-10 flex flex-col items-center gap-4 px-4 lg:px-9 pb-12 w-full max-w-[1180px]">
         {/* Logo — responsive: ~240px mobile, 350px desktop. Aspect 500/428 = 1.168 */}
         <div
           className="relative mb-4 w-[240px] h-[205px] md:w-[300px] md:h-[257px] lg:w-[350px] lg:h-[299px]"
@@ -60,24 +60,22 @@ export function Hero() {
         <p
           className="text-gold-light text-center uppercase tracking-wide"
           style={{
-            fontFamily: 'var(--font-nunito-sans), "Nunito Sans", sans-serif',
+            fontFamily: 'var(--font-body), "Nunito", sans-serif',
             fontSize: 'clamp(16px, 2vw, 24px)',
           }}
         >
           RESTAURANT & TAPAS BAR
         </p>
 
-        {/* CTA Buttons — exact styles from live site */}
-        <div className="flex gap-3 mt-4 flex-wrap justify-center">
-          {/* Reserve A Table — burgundy bg */}
+        {/* CTA Buttons — mobile: 1-col grid sized to widest child (both match Reserve A Table), centered.
+            Desktop (sm+): side-by-side content-width, centered. */}
+        <div className="w-fit mx-auto grid grid-cols-1 gap-3 mt-4 sm:flex sm:flex-row sm:justify-center">
+          {/* Reserve A Table — burgundy bg, hovers to black */}
           <a
             href="#"
-            className="flex items-center justify-center h-[46px] px-5 rounded-full uppercase font-semibold text-base hover:opacity-90 transition-opacity"
+            className="w-full sm:w-auto flex items-center justify-center h-[46px] px-5 rounded-full uppercase font-semibold text-base cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
             style={{
-              backgroundColor: '#780C06',
-              color: '#F4CE9F',
-              border: '1px solid #F4CE9F',
-              fontFamily: 'var(--font-nunito-sans), "Nunito Sans", sans-serif',
+              fontFamily: 'var(--font-button), Arial, sans-serif',
               fontWeight: 600,
             }}
           >
@@ -90,15 +88,12 @@ export function Hero() {
             />
             Reserve A Table
           </a>
-          {/* Order Online — BLACK bg */}
+          {/* Order Online — BLACK bg, hovers to burgundy */}
           <a
             href="#"
-            className="flex items-center justify-center h-[46px] px-5 rounded-full uppercase font-semibold text-base hover:opacity-90 transition-opacity"
+            className="w-full sm:w-auto flex items-center justify-center h-[46px] px-5 rounded-full uppercase font-semibold text-base cursor-pointer bg-[#000000] hover:bg-[#780C06] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
             style={{
-              backgroundColor: '#000000',
-              color: '#F4CE9F',
-              border: '1px solid #F4CE9F',
-              fontFamily: 'var(--font-nunito-sans), "Nunito Sans", sans-serif',
+              fontFamily: 'var(--font-button), Arial, sans-serif',
               fontWeight: 600,
             }}
           >
@@ -107,8 +102,8 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Bottom bar — locations + Instagram. Desktop only (live hides these on mobile). */}
-      <div className="hidden lg:flex absolute bottom-0 left-0 right-0 items-center justify-between px-9 py-6 z-10">
+      {/* Bottom bar — locations + Instagram. Desktop only; constrained to same max-width and padding as Navbar. */}
+      <div className="hidden lg:flex absolute bottom-0 inset-x-0 items-center justify-between max-w-[1280px] mx-auto px-4 lg:px-9 py-6 z-10">
         {/* Location links */}
         <div className="flex items-center gap-3">
           {/* Globe icon */}
@@ -126,7 +121,7 @@ export function Hero() {
                 rel="noopener noreferrer"
                 className="text-base hover:text-white transition-colors whitespace-nowrap"
                 style={{
-                  fontFamily: '"Nugros", var(--font-nunito-sans), sans-serif',
+                  fontFamily: 'var(--font-accent)',
                   color: '#FCEAC9',
                 }}
               >
@@ -157,7 +152,7 @@ export function Hero() {
           />
           <span
             className="text-base whitespace-nowrap"
-            style={{ fontFamily: '"Nugros", var(--font-nunito-sans), sans-serif' }}
+            style={{ fontFamily: 'var(--font-accent)' }}
           >
             @eclipsediluna
           </span>

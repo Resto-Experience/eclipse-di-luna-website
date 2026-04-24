@@ -4,36 +4,54 @@ import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 
-const FONT_BODY = 'var(--font-nunito-sans), "Nunito Sans", sans-serif';
-const FONT_HEADING = '"Swarsh Daisy", var(--font-display), Georgia, serif';
-
 const BANNERS = [
-  { src: '/images/events/banner-1.avif', alt: 'Salsa Nights at Eclipse di Luna' },
-  { src: '/images/events/banner-2.avif', alt: 'International DJ Nights at Eclipse di Luna' },
-  { src: '/images/events/banner-3.webp', alt: 'Live Music at Eclipse di Luna' },
+  {
+    mobile: '/images/events/banner-mobile-1.avif',
+    desktop: '/images/events/banner-desktop-1.avif',
+    label: 'Salsa Nights',
+    alt: 'Salsa Nights at Eclipse di Luna',
+  },
+  {
+    mobile: '/images/events/banner-mobile-2.avif',
+    desktop: '/images/events/banner-desktop-2.avif',
+    label: 'International DJ Nights',
+    alt: 'International DJ Nights at Eclipse di Luna',
+  },
+  {
+    mobile: '/images/events/banner-mobile-3.avif',
+    desktop: '/images/events/banner-desktop-3.webp',
+    label: 'Live Music',
+    alt: 'Live Music at Eclipse di Luna',
+  },
 ];
 
 const CTA_CARDS = [
   {
-    image: '/images/events/banner-1.avif',
     title: 'Celebrate',
     titleLine2: 'with us',
     href: '/private-party',
     cta: 'PRIVATE PARTY',
+    icon: '/images/icons/confetti.svg',
+    bg: '/images/events/cta-celebrate.svg',
+    kind: 'photo' as const,
   },
   {
-    image: '/images/events/banner-2.avif',
     title: 'Book',
     titleLine2: 'your spot',
     href: '#',
     cta: 'RESERVATIONS',
+    icon: '/images/icons/calendar-event.svg',
+    bg: '/images/events/cta-book-overlay.avif',
+    kind: 'decorative' as const,
   },
   {
-    image: '/images/events/banner-3.webp',
     title: 'We cater',
     titleLine2: 'your event',
     href: '/catering',
     cta: 'CATERING',
+    icon: '/images/icons/flare.svg',
+    bg: '/images/events/cta-cater.avif',
+    kind: 'photo' as const,
   },
 ];
 
@@ -55,64 +73,52 @@ function CarouselDots({ count, selected, onSelect }: { count: number; selected: 
   );
 }
 
+// Uses two Image elements over <picture> so next/image optimizes each viewport variant.
 function BannerCard({ banner }: { banner: (typeof BANNERS)[number] }) {
   return (
-    <a
-      href="#"
-      className="block relative overflow-hidden rounded-2xl group"
-      style={{ aspectRatio: '1440/488' }}
-    >
-      <Image
-        src={banner.src}
-        alt={banner.alt}
-        fill
-        className="object-cover group-hover:scale-105 transition-transform duration-500"
-        sizes="(max-width: 1280px) 100vw, 1280px"
-      />
+    <a href="#" className="block relative overflow-hidden rounded-[8px]">
+      <div className="relative lg:hidden" style={{ aspectRatio: '716/520' }}>
+        <Image src={banner.mobile} alt={banner.alt} fill className="object-cover" sizes="100vw" />
+      </div>
+      <div className="relative hidden lg:block" style={{ aspectRatio: '1440/488' }}>
+        <Image
+          src={banner.desktop}
+          alt={banner.alt}
+          fill
+          className="object-cover"
+          sizes="(max-width: 1280px) 100vw, 1040px"
+        />
+      </div>
     </a>
   );
 }
 
 function CtaCard({ card }: { card: (typeof CTA_CARDS)[number] }) {
+  const isDecorative = card.kind === 'decorative';
   return (
-    <div className="relative rounded-2xl overflow-hidden">
-      <div className="relative aspect-[4/5] md:aspect-[3/4]">
-        <Image
-          src={card.image}
-          alt=""
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 33vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/70" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <h3
-            className="text-white leading-[1.05]"
-            style={{
-              fontFamily: FONT_HEADING,
-              fontSize: 'clamp(36px, 4vw, 56px)',
-              fontWeight: 400,
-            }}
-          >
-            {card.title} <br />{card.titleLine2}
-          </h3>
-        </div>
-        <div className="absolute bottom-4 left-4 right-4">
-          <a
-            href={card.href}
-            className="flex items-center justify-center gap-2 h-[44px] w-full rounded-full uppercase font-semibold text-base cursor-pointer hover:opacity-90 transition-opacity"
-            style={{
-              backgroundColor: '#780C06',
-              color: '#F4CE9F',
-              border: '1px solid #F4CE9F',
-              fontFamily: FONT_BODY,
-              fontWeight: 600,
-            }}
-          >
-            {card.cta}
-          </a>
-        </div>
-      </div>
+    <div
+      className="relative overflow-hidden flex flex-col items-center px-6 py-6 aspect-[3/4.5]"
+      style={{
+        backgroundColor: isDecorative ? '#301103' : '#1A0604',
+        backgroundImage: `url(${card.bg})`,
+        backgroundSize: isDecorative ? 'contain' : 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="flex-1" />
+      <h3 className="text-display-md text-white text-center relative z-10">
+        {card.title} <br />{card.titleLine2}
+      </h3>
+      <div className="flex-1" />
+
+      <a
+        href={card.href}
+        className="text-cta-pill relative z-10 flex items-center justify-center gap-2 h-[44px] w-full rounded-full cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
+      >
+        <Image src={card.icon} alt="" width={20} height={20} className="shrink-0" />
+        {card.cta}
+      </a>
     </div>
   );
 }
@@ -158,14 +164,14 @@ export function EventsSection() {
     <section
       className="relative py-[80px]"
       style={{
-        backgroundColor: '#FCF8EE',
-        backgroundImage: 'url(/images/textures/cream-pattern.svg)',
-        backgroundSize: '400px',
-        backgroundRepeat: 'repeat',
+        backgroundColor: '#FEF8EC',
+        backgroundImage: 'url(/images/textures/events-bg.svg)',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center top',
       }}
     >
-      <div className="max-w-[1280px] mx-auto px-9">
-        {/* Heading group */}
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-9">
         <div className="flex flex-col items-center text-center gap-3 mb-12">
           <Image
             src="/images/icons/sparkle.svg"
@@ -181,34 +187,26 @@ export function EventsSection() {
             height={57}
             className="w-[260px] h-auto -mt-4"
           />
-          <h2
-            className="leading-[1.05] mt-4"
-            style={{
-              fontFamily: FONT_HEADING,
-              fontSize: 'clamp(40px, 5vw, 64px)',
-              color: '#292929',
-              fontWeight: 400,
-            }}
-          >
+          <h2 className="text-display-lg mt-4" style={{ color: '#292929' }}>
             Celebrate, gather, and enjoy <br />unforgettable experiences.
           </h2>
         </div>
 
-        {/* Banners row — stacked vertically on all viewports (matches live mobile + desktop) */}
-        <div className="flex flex-col gap-6 mb-12">
+        <div className="flex flex-col gap-6 max-w-[1040px] mx-auto">
           {BANNERS.map((banner, i) => (
             <BannerCard key={i} banner={banner} />
           ))}
         </div>
 
-        {/* CTA cards — mobile carousel, desktop 3-col grid */}
-        <div className="lg:hidden -mx-9">
+        <hr className="max-w-[1040px] mx-auto my-12 border-t border-[#3D0E0B]/30" />
+
+        <div className="lg:hidden -mx-4">
           <MobileCarousel
             items={CTA_CARDS}
             render={(card) => <CtaCard card={card} />}
           />
         </div>
-        <div className="hidden lg:grid grid-cols-3 gap-4">
+        <div className="hidden lg:grid grid-cols-3 gap-0 max-w-[1040px] mx-auto">
           {CTA_CARDS.map((card, i) => (
             <CtaCard key={i} card={card} />
           ))}

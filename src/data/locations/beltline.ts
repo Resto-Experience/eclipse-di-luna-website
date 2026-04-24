@@ -3,19 +3,19 @@ import type { Location } from '@/types/location';
 export const beltline: Location = {
   slug: 'beltline',
   name: 'Eclipse di Luna - Beltline',
-  subtitle: 'Krog Street Market',
+  subtitle: 'Old Fourth Ward',
   description:
-    'Eclipse di Luna at the Beltline brings the vibrant tapas experience to Atlanta\'s dynamic Krog Street Market area.',
+    "The newest Eclipse di Luna location brings a moodier, more intimate take on the brand to the Atlanta Beltline. Inspired by the natural textures and warm tones of neighborhood tapas bars in Barcelona and Madrid, the Beltline space trades bright colors for woods, metals, and earthy tones, creating an atmosphere that feels authentic and transportive.\n\nDesigned to feel like stumbling into a hidden family-owned tapas bar in Spain, this location is cozy, urban, and effortlessly social. DJs every weekend, shareable plates, handcrafted cocktails, and the energy of the Beltline make it a perfect stop for drinks, tapas, and late-night gatherings.\n\nEach Eclipse has its own personality, and the Beltline is the most intimate, moody, and city-driven expression of the brand.",
   tagline:
-    'In the vibrant Beltline, Eclipse di Luna offers sizzling tapas, a lively vibe, and a wine selection to delight your taste buds!',
-  heroImage: '/images/hero/beltline.jpg',
-  cardImage: '/images/locations/beltline.jpg',
+    'The most intimate, moody, and city-driven Eclipse — tapas, cocktails, and DJs on the Atlanta Beltline.',
+  heroImage: '/images/locations/beltline/hero-bg.avif',
+  cardImage: '/images/locations/beltline.avif',
   contact: {
     phone: '(463) 252-3572',
     email: 'beltline@eclipsediluna.com',
     cateringEmail: 'catering@eclipsediluna.com',
     cateringPhone: '(463) 252-3572',
-    address: '661 Auburn Ave NE STE 220',
+    address: '661 Auburn AVE NE STE 220',
     city: 'Atlanta',
     state: 'GA',
     zip: '30312',
@@ -39,18 +39,22 @@ export const beltline: Location = {
   ],
   entertainment: {
     title: 'Entertainment',
-    description: 'Live music and entertainment at Eclipse di Luna Beltline.',
+    description: 'DJ sets every weekend at Eclipse di Luna Beltline.',
     items: [
-      { day: 'Thursday', type: 'Live Music', time: '8:00 PM' },
-      { day: 'Friday', type: 'Live Music', time: '8:00 PM' },
-      { day: 'Saturday', type: 'Live Music', time: '8:00 PM' },
+      {
+        day: 'Friday & Saturday',
+        type: 'Latin Nights (DJ Sets)',
+        time: '9:30 PM – 12:30 AM',
+        image: '/images/locations/beltline/latin-nights.avif',
+      },
     ],
   },
   deals: [
     {
       title: 'Happy Hour',
-      description: 'Monday–Friday 4–7pm: discounted tapas and cocktails.',
-      day: 'Monday–Friday',
+      description: 'Monday – Thursday, 04:00pm – 06:00pm',
+      day: 'Monday – Thursday',
+      image: '/images/locations/shared/happy-hour.avif',
     },
   ],
 };

@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { getAllLocations } from '@/data/locations';
 
-const FONT_BODY = 'var(--font-nunito-sans), "Nunito Sans", sans-serif';
+const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
+const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
 const FONT_HEADING = '"Swarsh Daisy", var(--font-display), Georgia, serif';
 
 const LOCATION_DESCRIPTIONS: Record<string, string> = {
@@ -31,7 +32,7 @@ export function LocationsSection() {
         backgroundPosition: 'center',
       }}
     >
-      <div className="max-w-[1280px] mx-auto px-9">
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-9">
         {/* Heading group */}
         <div className="flex flex-col items-center text-center gap-4 mb-16">
           {/* Moon icon */}
@@ -50,41 +51,30 @@ export function LocationsSection() {
             height={54}
             className="w-[200px] h-auto"
           />
-          {/* Heading */}
-          <h2
-            className="leading-[1.05]"
-            style={{
-              fontFamily: FONT_HEADING,
-              fontSize: 'clamp(40px, 5vw, 64px)',
-              color: '#201814',
-              fontWeight: 400,
-            }}
-          >
+          {/* Heading — text-display-lg (36/64) */}
+          <h2 className="text-display-lg" style={{ color: '#201814' }}>
             Explore Our <br />Vibrant Locations
           </h2>
-          {/* Subtitle */}
-          <p
-            className="max-w-[600px]"
-            style={{
-              fontFamily: FONT_BODY,
-              fontSize: '24px',
-              color: '#201814',
-              fontWeight: 400,
-            }}
-          >
+          {/* Subtitle — text-body-xl (18/28) */}
+          <p className="text-body-xl max-w-[600px]" style={{ color: '#201814' }}>
             Experience the essence of Latin & Spanish flavors across our unique spaces
           </p>
         </div>
 
-        {/* Location cards — full width per row */}
-        <div className="flex flex-col gap-12">
-          {locations.map((loc) => {
+        {/* Location cards — ZIGZAG: alternating image-left/right on desktop. Mobile always stacks image-top. */}
+        <div className="flex flex-col gap-12 lg:gap-20">
+          {locations.map((loc, i) => {
             const desc = LOCATION_DESCRIPTIONS[loc.slug];
             const addr = LOCATION_ADDRESSES[loc.slug];
+            // Zigzag: index 0,2 → image first (left); index 1,3 → image last (right)
+            const imageFirst = i % 2 === 0;
             return (
-              <div key={loc.slug} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div
+                key={loc.slug}
+                className={`flex flex-col lg:flex-row ${imageFirst ? '' : 'lg:flex-row-reverse'} gap-8 lg:gap-12 items-center`}
+              >
                 {/* Image */}
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                <div className="relative aspect-[4/3] w-full lg:w-1/2 rounded-2xl overflow-hidden">
                   <Image
                     src={`/images/locations/${loc.slug}.avif`}
                     alt={`Eclipse di Luna ${loc.slug}`}
@@ -94,34 +84,18 @@ export function LocationsSection() {
                   />
                 </div>
 
-                {/* Details */}
-                <div className="flex flex-col gap-4">
-                  <h3
-                    style={{
-                      fontFamily: FONT_HEADING,
-                      fontSize: 'clamp(32px, 4vw, 48px)',
-                      color: '#201814',
-                      fontWeight: 400,
-                      lineHeight: 1.1,
-                    }}
-                  >
+                {/* Details — gap-3 (12px) between items; tighter spacing on pills↔address↔CTAs via mt-2. */}
+                <div className="flex flex-col gap-3 w-full lg:w-1/2">
+                  <h3 className="text-display-xs" style={{ color: '#201814' }}>
                     {loc.slug.charAt(0).toUpperCase() + loc.slug.slice(1)}
                   </h3>
 
-                  <p
-                    className="max-w-[500px]"
-                    style={{
-                      fontFamily: FONT_BODY,
-                      fontSize: '20px',
-                      color: '#201814',
-                      lineHeight: 1.4,
-                    }}
-                  >
+                  <p className="text-body-lg max-w-[500px]" style={{ color: '#201814' }}>
                     {desc}
                   </p>
 
-                  {/* Link pills */}
-                  <div className="flex flex-wrap gap-2 mt-1">
+                  {/* Link tabs — flat cream rectangles per live (NOT rounded pills). bg #F8DEBF, 37px tall, 10px horizontal padding. */}
+                  <div className="flex flex-wrap gap-[5px] mt-1">
                     {[
                       { label: 'Order Online', href: `/location-${loc.slug}/#Order` },
                       { label: 'Entertainment', href: `/location-${loc.slug}/#Entertainment` },
@@ -131,8 +105,13 @@ export function LocationsSection() {
                       <a
                         key={link.label}
                         href={link.href}
-                        className="px-4 py-1.5 rounded-full text-sm font-medium border border-[#201814]/30 text-[#201814] hover:bg-[#201814] hover:text-white transition-colors"
-                        style={{ fontFamily: FONT_BODY }}
+                        className="inline-flex items-center h-[37px] px-[10px] bg-[#F8DEBF] text-[#333333] hover:bg-[#201814] hover:text-[#F8DEBF] transition-colors"
+                        style={{
+                          fontFamily: 'var(--font-body), "Nunito", sans-serif',
+                          fontSize: '18px',
+                          fontWeight: 400,
+                          lineHeight: 1,
+                        }}
                       >
                         {link.label}
                       </a>
@@ -140,7 +119,7 @@ export function LocationsSection() {
                   </div>
 
                   {/* Address with pin */}
-                  <div className="flex items-center gap-2 mt-2">
+                  <div className="flex items-center gap-2 mt-1">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#780C06" strokeWidth="2">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                       <circle cx="12" cy="10" r="3" />
@@ -149,39 +128,25 @@ export function LocationsSection() {
                       href={addr.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-base hover:underline"
-                      style={{ fontFamily: FONT_BODY, color: '#201814' }}
+                      className="text-body hover:underline"
+                      style={{ color: '#201814' }}
                     >
                       {addr.text}
                     </a>
                   </div>
 
-                  {/* CTAs */}
-                  <div className="flex gap-3 mt-3">
+                  {/* CTAs — Reserve red→black, See More dark→red. */}
+                  <div className="flex gap-3 mt-2">
                     <a
                       href="#"
-                      className="flex items-center justify-center h-[42px] lg:h-[46px] px-4 lg:px-5 rounded-full uppercase font-semibold text-sm lg:text-base whitespace-nowrap cursor-pointer hover:opacity-90 transition-opacity"
-                      style={{
-                        backgroundColor: '#780C06',
-                        color: '#F4CE9F',
-                        border: '1px solid #F4CE9F',
-                        fontFamily: FONT_BODY,
-                        fontWeight: 600,
-                      }}
+                      className="text-cta-pill flex items-center justify-center h-[42px] lg:h-[46px] px-4 lg:px-5 rounded-full whitespace-nowrap cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
                     >
                       <Image src="/images/icons/circle-dot-filled.svg" alt="" width={18} height={18} className="mr-2" />
                       Reserve A Table
                     </a>
                     <a
                       href={`/location-${loc.slug}`}
-                      className="flex items-center justify-center h-[42px] lg:h-[46px] px-4 lg:px-5 rounded-full uppercase font-semibold text-sm lg:text-base whitespace-nowrap cursor-pointer hover:opacity-90 transition-opacity"
-                      style={{
-                        backgroundColor: 'transparent',
-                        color: '#201814',
-                        border: '1px solid #201814',
-                        fontFamily: FONT_BODY,
-                        fontWeight: 600,
-                      }}
+                      className="text-cta-pill flex items-center justify-center h-[42px] lg:h-[46px] px-4 lg:px-5 rounded-full whitespace-nowrap cursor-pointer bg-[#120601] hover:bg-[#780C06] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
                     >
                       See More
                     </a>

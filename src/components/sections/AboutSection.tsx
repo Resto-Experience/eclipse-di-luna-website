@@ -5,15 +5,15 @@ import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
-const FONT_BODY = 'var(--font-nunito-sans), "Nunito Sans", sans-serif';
+const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
+const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
 const FONT_HEADING = '"Swarsh Daisy", var(--font-display), Georgia, serif';
 
-// Order matches live: tapas, paella, empanada, dessert
+// 3-slide carousel (user dropped the 4th). Keep: tapas plate, paella, empanada.
 const SLIDES = [
-  { src: '/images/about/slide-tapas.webp', alt: 'Eclipse di Luna tapas with wine' },
-  { src: '/images/about/slide-1.webp', alt: 'Eclipse di Luna paella' },
-  { src: '/images/about/slide-2.webp', alt: 'Eclipse di Luna empanada' },
-  { src: '/images/about/slide-3.webp', alt: 'Eclipse di Luna dessert' },
+  { src: '/images/about/slide-1.avif', alt: 'Eclipse di Luna tapas plate with wine' },
+  { src: '/images/about/slide-2.webp', alt: 'Eclipse di Luna paella with shrimp' },
+  { src: '/images/about/slide-3.webp', alt: 'Eclipse di Luna empanada with mango salsa' },
 ];
 
 export function AboutSection() {
@@ -46,7 +46,7 @@ export function AboutSection() {
         backgroundPosition: 'center',
       }}
     >
-      <div className="max-w-[1280px] mx-auto px-9 flex flex-col gap-16 lg:gap-20">
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-9 flex flex-col gap-16 lg:gap-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left on desktop, BELOW image on mobile: Text */}
         <div className="flex flex-col gap-6 order-2 lg:order-1">
@@ -59,45 +59,25 @@ export function AboutSection() {
             className="h-auto w-[201px]"
           />
 
-          {/* Heading */}
-          <h2
-            className="leading-[1.05]"
-            style={{
-              fontFamily: FONT_HEADING,
-              fontSize: 'clamp(32px, 4.2vw, 54px)',
-              color: '#3C1816',
-              fontWeight: 400,
-              letterSpacing: '-0.01em',
-            }}
-          >
+          {/* Heading — text-display-lg (36/64) */}
+          <h2 className="text-display-lg" style={{ color: '#3C1816' }}>
             A culinary journey to <br className="hidden lg:inline" />
             latin & spanish culture
           </h2>
 
-          {/* Paragraph */}
-          <p
-            className="max-w-[500px]"
-            style={{
-              fontFamily: FONT_BODY,
-              fontSize: '24px',
-              color: '#3C1816',
-              fontWeight: 400,
-              lineHeight: 1.4,
-            }}
-          >
+          {/* Paragraph — text-body-lg (18/24) */}
+          <p className="text-body-lg max-w-[500px]" style={{ color: '#3C1816' }}>
             Eclipse di Luna celebrates culture and good times, showcasing Latin cuisine. Join us to enjoy flavors, music, dancing, and a beautiful atmosphere.
           </p>
 
-          {/* CTAs — full width stacked on mobile, inline on desktop. MENU has black bg like Hero's Order Online. */}
-          <div className="flex flex-col lg:flex-row gap-3 mt-2 w-full lg:w-auto">
+          {/* CTAs — mobile: 1-col grid, both equal to Reserve A Table width, left-aligned.
+              Desktop (lg+): side-by-side content-width. */}
+          <div className="w-fit grid grid-cols-1 gap-3 mt-2 lg:flex lg:flex-row">
             <a
               href="#"
-              className="flex items-center justify-center h-[48px] px-6 rounded-full uppercase font-semibold text-base cursor-pointer hover:opacity-90 transition-opacity w-full lg:w-auto"
+              className="w-full lg:w-auto flex items-center justify-center h-[48px] px-6 rounded-full uppercase font-semibold text-base whitespace-nowrap cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
               style={{
-                backgroundColor: '#780C06',
-                color: '#F4CE9F',
-                border: '1px solid #F4CE9F',
-                fontFamily: FONT_BODY,
+                fontFamily: FONT_BUTTON,
                 fontWeight: 600,
               }}
             >
@@ -112,12 +92,9 @@ export function AboutSection() {
             </a>
             <a
               href="/menu"
-              className="flex items-center justify-center h-[48px] px-6 rounded-full uppercase font-semibold text-base cursor-pointer hover:opacity-90 transition-opacity w-full lg:w-auto"
+              className="w-full lg:w-auto flex items-center justify-center h-[48px] px-6 rounded-full uppercase font-semibold text-base whitespace-nowrap cursor-pointer bg-[#000000] hover:bg-[#780C06] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
               style={{
-                backgroundColor: '#000000',
-                color: '#F4CE9F',
-                border: '1px solid #F4CE9F',
-                fontFamily: FONT_BODY,
+                fontFamily: FONT_BUTTON,
                 fontWeight: 600,
               }}
             >
@@ -128,7 +105,7 @@ export function AboutSection() {
 
         {/* Right on desktop, ABOVE text on mobile: Image carousel */}
         <div className="relative order-1 lg:order-2">
-          <div className="overflow-hidden rounded-3xl" ref={emblaRef}>
+          <div className="overflow-hidden rounded-[10px]" ref={emblaRef}>
             <div className="flex">
               {SLIDES.map((slide, i) => (
                 <div key={i} className="flex-[0_0_100%] min-w-0">
@@ -146,29 +123,34 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* Controls row — arrows + dots in one row below image, matches live's Webflow slider */}
-          <div className="flex items-center justify-between mt-4 px-2">
+          {/* Controls row — arrows + dots in one row below image, matches live's Webflow slider.
+              Arrows are SVGs with the red circle baked in (no extra wrapper bg). */}
+          <div className="flex items-center justify-between mt-3">
             <button
               type="button"
               onClick={scrollPrev}
               aria-label="Previous slide"
-              className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#780C06', color: '#F4CE9F' }}
+              className="cursor-pointer transition-opacity duration-200 opacity-100 hover:opacity-80"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
+              <Image
+                src="/images/icons/arrow-left.svg"
+                alt=""
+                width={65}
+                height={40}
+                priority={false}
+              />
             </button>
 
-            <div className="flex gap-2">
+            {/* Dots — 8x8 circles. Active = filled red, inactive = red ring outline. */}
+            <div className="flex items-center gap-[6px]">
               {SLIDES.map((_, i) => (
                 <button
                   key={i}
                   type="button"
                   aria-label={`Show slide ${i + 1} of ${SLIDES.length}`}
                   onClick={() => scrollTo(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors cursor-pointer ${
-                    selectedIndex === i ? 'bg-[#780C06]' : 'bg-[#780C06]/30'
+                  className={`w-2 h-2 rounded-full border border-[#780C06] transition-colors cursor-pointer ${
+                    selectedIndex === i ? 'bg-[#780C06]' : 'bg-transparent'
                   }`}
                 />
               ))}
@@ -178,12 +160,15 @@ export function AboutSection() {
               type="button"
               onClick={scrollNext}
               aria-label="Next slide"
-              className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#780C06', color: '#F4CE9F' }}
+              className="cursor-pointer transition-opacity duration-200 opacity-100 hover:opacity-80"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
+              <Image
+                src="/images/icons/arrow-right.svg"
+                alt=""
+                width={65}
+                height={40}
+                priority={false}
+              />
             </button>
           </div>
         </div>

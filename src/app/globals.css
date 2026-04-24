@@ -29,9 +29,12 @@
   --color-surface: var(--color-white);
   --color-muted: var(--color-gray-400);
 
-  /* Font variables */
-  --font-heading: var(--font-nunito-sans), Arial, sans-serif;
-  --font-body: var(--font-nunito-sans), Arial, sans-serif;
+  /* Font role aliases — point at the Next/font CSS variables set in layout.tsx */
+  --font-heading: var(--font-display), Georgia, serif;
+  --font-body: var(--font-nunito), Arial, sans-serif;
+  --font-button: var(--font-montserrat), Arial, sans-serif;
+  --font-accent: var(--font-nugros), var(--font-nunito), sans-serif;
+  --font-secondary: var(--font-dm-sans), Arial, sans-serif;
 }
 
 @theme inline {
@@ -52,6 +55,9 @@
   --color-muted: var(--color-muted);
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
+  --font-button: var(--font-button);
+  --font-accent: var(--font-accent);
+  --font-secondary: var(--font-secondary);
 }
 
 html {
@@ -62,6 +68,133 @@ body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-body), Arial, Helvetica, sans-serif;
+}
+
+/*
+ * Typography polish — prevent orphan/widow words across all copy.
+ * `text-wrap: pretty` asks the browser to avoid leaving a single word
+ * on the last line of a paragraph. Supported in Chrome 117+, Safari 17.5+, Firefox 119+.
+ * Applied to every block-level text container so we don't need per-element opt-in.
+ */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+blockquote,
+figcaption {
+  text-wrap: pretty;
+}
+
+/* =========================================================================
+ * TYPOGRAPHY SYSTEM — sizes sourced from live eclipsediluna.com (QA Round 11).
+ * Use these role classes instead of inline fontSize/fontFamily/fontWeight.
+ * Mobile value first; `lg:` (1024+) bumps to desktop value.
+ * ========================================================================= */
+
+/* --- DISPLAY (Swarsh Daisy) --- */
+.text-display-xl {         /* Hero H1 */
+  font-family: var(--font-heading);
+  font-size: 48px;
+  line-height: 1;
+  font-weight: 400;
+}
+.text-display-lg {         /* Section H2 (About, Locations, Events desktop) */
+  font-family: var(--font-heading);
+  font-size: 36px;
+  line-height: 1;
+  font-weight: 400;
+}
+.text-display-md {         /* Events H2 mobile, Gift Card desktop */
+  font-family: var(--font-heading);
+  font-size: 28px;
+  line-height: 1.05;
+  font-weight: 400;
+}
+.text-display-sm {         /* Gift Card H2 (22 → 42) */
+  font-family: var(--font-heading);
+  font-size: 22px;
+  line-height: 1.1;
+  font-weight: 400;
+}
+.text-display-xs {         /* Location card H3 (24 → 36) */
+  font-family: var(--font-heading);
+  font-size: 24px;
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+@media (min-width: 1024px) {
+  .text-display-xl { font-size: 72px; }
+  .text-display-lg { font-size: 64px; line-height: 1.1; }
+  .text-display-md { font-size: 42px; }
+  .text-display-sm { font-size: 42px; }
+  .text-display-xs { font-size: 36px; }
+}
+
+/* --- BODY (Nunito) --- */
+.text-body-xl {            /* Locations subtitle */
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 400;
+}
+.text-body-lg {            /* About paragraph, location card desc */
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+.text-body {               /* Default body */
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+.text-body-sm {            /* Small body, gift-card copy */
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+@media (min-width: 1024px) {
+  .text-body-xl { font-size: 28px; line-height: 1.4; }
+  .text-body-lg { font-size: 24px; }
+  .text-body    { font-size: 18px; }
+  .text-body-sm { font-size: 16px; }
+}
+
+/* --- CTA / BUTTONS --- */
+.text-cta {                /* Navbar "Reservations" — Montserrat */
+  font-family: var(--font-button);
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.text-cta-pill {           /* Inline pill CTAs (Reserve A Table, Menu, etc) — Nunito */
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+@media (min-width: 1024px) {
+  .text-cta { font-size: 18px; }
+}
+
+/* --- ACCENT (Nugros — location pill labels, @handle) --- */
+.text-accent {
+  font-family: var(--font-accent);
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 400;
 }
 
 /* Marquee animation for reviews ticker */

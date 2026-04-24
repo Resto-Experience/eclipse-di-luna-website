@@ -30,8 +30,8 @@ export const MORE_DROPDOWN: NavItem[] = [
 
 // Main nav items (in order, matching live site)
 export const NAV_ITEMS: NavItem[] = [
-  { label: 'Locations', href: '#', dropdown: LOCATIONS_DROPDOWN },
-  { label: 'Menu', href: '/menu', dropdown: MENU_DROPDOWN },
+  { label: 'Locations', href: '/locations', dropdown: LOCATIONS_DROPDOWN },
+  { label: 'Menu', href: '/menu' },
   { label: 'Private Party', href: '/private-party' },
   { label: 'Catering', href: '/catering' },
   { label: 'More', href: '#', dropdown: MORE_DROPDOWN },

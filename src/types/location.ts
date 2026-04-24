@@ -39,6 +39,7 @@ export interface EntertainmentItem {
   day: string;
   type: string;
   time: string;
+  image?: string;
 }
 
 export interface EntertainmentSchedule {

@@ -5,11 +5,11 @@ export const dunwoody: Location = {
   name: 'Eclipse di Luna - Dunwoody',
   subtitle: 'Ashford Dunwoody',
   description:
-    'Eclipse di Luna Dunwoody brings the full Latin fiesta experience to the Perimeter area, with live music, dancing, and incredible tapas.',
+    "Located in Park Place, Eclipse di Luna Dunwoody blends high-energy dining with one of the most versatile event spaces in the Eclipse family. Known for its festive, artsy atmosphere and eclectic tapas menu, this location is designed for connection, celebration, and unforgettable nights out.\n\nDunwoody features multiple event spaces, including a cozy Wine Room for intimate gatherings and a picturesque outdoor patio surrounded by greenery. The restaurant can accommodate celebrations of all sizes, from private dinners to full buy outs hosting up to 250 guests, making it a sought-after destination for weddings, milestone parties, and corporate events.\n\nGuests come for the tapas and cocktails, but stay for the music, ambiance, and social energy that defines the Eclipse experience.",
   tagline:
-    'Eclipse di Luna in Dunwoody is a vibrant fiesta! Immerse in Latin culture with music, dance, and delicious cuisine!',
-  heroImage: '/images/hero/dunwoody.jpg',
-  cardImage: '/images/locations/dunwoody.jpg',
+    'High-energy dining and versatile event spaces — up to 250 guests. Where tapas, cocktails and Latin music come together.',
+  heroImage: '/images/locations/dunwoody/hero-bg.avif',
+  cardImage: '/images/locations/dunwoody.avif',
   contact: {
     phone: '(470) 712-5680',
     email: 'info@eclipsediluna.net',
@@ -32,25 +32,41 @@ export const dunwoody: Location = {
     { day: 'Monday', open: '04:00 pm', close: '09:00 pm' },
     { day: 'Tuesday', open: '04:00 pm', close: '10:00 pm' },
     { day: 'Wednesday', open: '04:00 pm', close: '10:00 pm' },
-    { day: 'Thursday', open: '04:00 am', close: '02:00 am' },
+    { day: 'Thursday', open: '04:00 pm', close: '02:00 am' },
     { day: 'Friday', open: '11:00 am', close: '12:00 am' },
     { day: 'Saturday', open: '12:00 pm', close: '02:00 am' },
     { day: 'Sunday', open: '12:00 pm', close: '09:00 pm' },
   ],
   entertainment: {
     title: 'Entertainment',
-    description: 'Live music, dancing, and entertainment at Eclipse di Luna Dunwoody.',
+    description: 'Live Latin music, DJs, and dancing at Eclipse di Luna Dunwoody.',
     items: [
-      { day: 'Thursday', type: 'Live Music', time: '9:00 PM' },
-      { day: 'Friday', type: 'Live Music', time: '9:00 PM' },
-      { day: 'Saturday', type: 'Live Music & Dancing', time: '9:00 PM' },
+      {
+        day: 'Monday to Friday',
+        type: 'Live Music',
+        time: '05:30 PM - 08:30 pm',
+        image: '/images/locations/dunwoody/live-music.avif',
+      },
+      {
+        day: 'Every Thursday',
+        type: 'Latin Thursday Nights',
+        time: 'DJ set: 10:00 PM – 2:00 AM',
+        image: '/images/locations/dunwoody/latin-thursday.avif',
+      },
+      {
+        day: 'Every Saturday',
+        type: 'Latin Saturday Nights',
+        time: 'DJ set: 10:00 PM – 2:00 AM',
+        image: '/images/locations/dunwoody/latin-saturday.avif',
+      },
     ],
   },
   deals: [
     {
       title: 'Happy Hour',
-      description: 'Monday–Friday 4–7pm: discounted tapas and cocktails.',
-      day: 'Monday–Friday',
+      description: 'Monday – Thursday, 04:00pm – 06:00pm',
+      day: 'Monday – Thursday',
+      image: '/images/locations/shared/happy-hour.avif',
     },
   ],
 };

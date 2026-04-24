@@ -3,15 +3,13 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SITE_CREDIT } from '@/data/site';
 
-const FONT_BODY = 'var(--font-nunito-sans), "Nunito Sans", sans-serif';
+const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
 const FONT_HEADING = '"Swarsh Daisy", var(--font-display), Georgia, serif';
 
 const LOCATIONS = [
   {
     name: 'Alpharetta',
-    slug: 'alpharetta',
     links: [
       { label: 'Menu', href: '/menu/menu-alpharetta' },
       { label: 'Entertainment', href: '/location-alpharetta/#Entertainment' },
@@ -20,18 +18,7 @@ const LOCATIONS = [
     ],
   },
   {
-    name: 'Beltline',
-    slug: 'beltline',
-    links: [
-      { label: 'Menu', href: '/menu/menu-beltline' },
-      { label: 'Entertainment', href: '/location-beltline/#Entertainment-Beltline' },
-      { label: 'Deals', href: '/location-beltline/#Deals-Beltline' },
-      { label: 'Order Online', href: '/location-beltline/#Order-Beltline' },
-    ],
-  },
-  {
     name: 'Buckhead',
-    slug: 'buckhead',
     links: [
       { label: 'Menu', href: '/menu/menu-buckhead' },
       { label: 'Entertainment', href: '/location-buckhead/#Entertainment-Buckhead' },
@@ -40,8 +27,16 @@ const LOCATIONS = [
     ],
   },
   {
+    name: 'Beltline',
+    links: [
+      { label: 'Menu', href: '/menu/menu-beltline' },
+      { label: 'Entertainment', href: '/location-beltline/#Entertainment-Beltline' },
+      { label: 'Deals', href: '/location-beltline/#Deals-Beltline' },
+      { label: 'Order Online', href: '/location-beltline/#Order-Beltline' },
+    ],
+  },
+  {
     name: 'Dunwoody',
-    slug: 'dunwoody',
     links: [
       { label: 'Menu', href: '/menu/menu-dunwoody' },
       { label: 'Entertainment', href: '/location-dunwoody/#Entertainment-Dunwoody' },
@@ -60,20 +55,22 @@ const MORE_LINKS = [
 
 function PinIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4CE9F" strokeWidth="2">
-      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-      <circle cx="12" cy="10" r="3" />
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M11.5 11.3c-.66 0-1.3-.26-1.77-.73a2.5 2.5 0 01-.73-1.77c0-.66.26-1.3.73-1.77A2.5 2.5 0 0111.5 6.3c.66 0 1.3.26 1.77.73a2.5 2.5 0 01.73 1.77c0 .66-.26 1.3-.73 1.77a2.5 2.5 0 01-1.77.73zm0-9.5c-1.86 0-3.64.74-4.95 2.05A7 7 0 004.5 8.8c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-2.05-4.95A7 7 0 0011.5 1.8z"
+        fill="#F4CE9F"
+      />
     </svg>
   );
 }
 
 function MoreIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4CE9F" strokeWidth="2">
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="8" cy="12" r="0.5" fill="#F4CE9F" />
-      <circle cx="12" cy="12" r="0.5" fill="#F4CE9F" />
-      <circle cx="16" cy="12" r="0.5" fill="#F4CE9F" />
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="9" stroke="#F4CE9F" strokeWidth="2" fill="none" />
+      <circle cx="8" cy="12" r="0.9" fill="#F4CE9F" />
+      <circle cx="12" cy="12" r="0.9" fill="#F4CE9F" />
+      <circle cx="16" cy="12" r="0.9" fill="#F4CE9F" />
     </svg>
   );
 }
@@ -91,120 +88,140 @@ export function Footer() {
 
   return (
     <footer style={{ backgroundColor: '#201814' }}>
-      {/* Newsletter section */}
-      <div className="px-9 py-12">
-        <div
-          className="max-w-[1280px] mx-auto rounded-2xl px-8 py-10 text-center"
-          style={{
-            backgroundColor: '#3D0E0B',
-            backgroundImage: 'url(/images/textures/newsletter-pattern.svg)',
-            backgroundSize: 'cover',
-          }}
-        >
-          <h2
-            className="leading-tight mb-2"
+      {/* Negative margin pulls the newsletter card up into the overlap zone of the previous section. */}
+      <div className="relative z-10 -mt-[150px] lg:-mt-[220px] mb-12">
+        <div className="max-w-[1180px] mx-auto px-4 lg:px-0">
+          <div
+            className="rounded-[8px] px-6 lg:px-12 py-20 lg:py-24 text-center flex flex-col justify-center items-center"
             style={{
-              fontFamily: FONT_HEADING,
-              fontSize: 'clamp(24px, 3vw, 36px)',
-              color: '#FFFFFF',
-              fontWeight: 400,
+              backgroundColor: '#3D0E0B',
+              backgroundImage: 'url(/images/textures/newsletter-pattern.svg)',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'repeat',
+              minHeight: '406px',
+              gap: '10px',
             }}
           >
-            Join our newsletter
-          </h2>
-          <p
-            className="mb-6"
-            style={{
-              fontFamily: FONT_BODY,
-              fontSize: '18px',
-              color: '#F4CE9F',
-            }}
-          >
-            Be the first to know about events, menus, and specials
-          </p>
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row gap-3 max-w-[600px] mx-auto items-stretch"
-          >
-            <div className="flex-1 text-left">
-              <label
-                htmlFor="newsletter-email"
-                className="block text-white text-sm mb-1"
-                style={{ fontFamily: FONT_BODY }}
-              >
-                Email Address*
-              </label>
-              <input
-                id="newsletter-email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="example@mail.com"
-                className="w-full h-[46px] px-4 rounded-full bg-transparent border focus:outline-none focus:ring-2 focus:ring-[#F4CE9F]/50"
-                style={{
-                  borderColor: '#F4CE9F',
-                  color: '#F4CE9F',
-                  fontFamily: FONT_BODY,
-                }}
-              />
-            </div>
-            <div className="flex items-end">
-              <button
-                type="submit"
-                className="h-[46px] px-8 rounded-full uppercase font-semibold text-base hover:opacity-90 transition-opacity"
-                style={{
-                  backgroundColor: '#F4CE9F',
-                  color: '#3D0E0B',
-                  fontFamily: FONT_BODY,
-                  fontWeight: 600,
-                }}
-              >
-                {submitted ? 'Subscribed!' : 'Subscribe'}
-              </button>
-            </div>
-          </form>
+            <h2
+              style={{
+                fontFamily: FONT_HEADING,
+                fontSize: 'clamp(32px, 4vw, 48px)',
+                lineHeight: 1.1,
+                fontWeight: 400,
+                color: '#FEFAF5',
+                margin: 0,
+              }}
+            >
+              Join our newsletter
+            </h2>
+            <p
+              style={{
+                fontFamily: FONT_BODY,
+                fontSize: 'clamp(20px, 2.5vw, 32px)',
+                lineHeight: '35px',
+                fontWeight: 300,
+                color: '#FAE8D3',
+                textTransform: 'capitalize',
+                margin: 0,
+              }}
+            >
+              Be the first to know about events, menus, and specials
+            </p>
+
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-3 max-w-[720px] mx-auto w-full items-stretch mt-5"
+            >
+              <div className="flex-1 text-left">
+                <label
+                  htmlFor="newsletter-email"
+                  className="block text-sm mb-1"
+                  style={{ fontFamily: FONT_BODY, color: '#FAE8D3', fontWeight: 400 }}
+                >
+                  Email Address*
+                </label>
+                <input
+                  id="newsletter-email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="example@mail.com"
+                  className="w-full h-[48px] px-5 rounded-full bg-white/10 border focus:outline-none focus:ring-2 focus:ring-[#F4CE9F]/50"
+                  style={{
+                    borderColor: '#F4CE9F',
+                    color: '#F4CE9F',
+                    fontFamily: FONT_BODY,
+                  }}
+                />
+              </div>
+              <div className="flex items-end justify-center sm:justify-start">
+                <button
+                  type="submit"
+                  className="h-[48px] px-8 rounded-full uppercase cursor-pointer transition-colors duration-200"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    backgroundColor: '#F4CE9F',
+                    color: '#3D0E0B',
+                    border: '1px solid transparent',
+                  }}
+                >
+                  {submitted ? 'Subscribed!' : 'Subscribe'}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
-      {/* Footer columns */}
-      <div className="max-w-[1280px] mx-auto px-9 pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-12">
-          {/* Logo column */}
-          <div className="flex flex-col items-center lg:items-start">
+      <div className="max-w-[1180px] mx-auto px-4 lg:px-0 pb-12" style={{ borderBottom: '1px solid #79664F' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[244px_1fr_190px] gap-12 items-start">
+          <Link href="/" className="flex justify-center lg:justify-start">
             <Image
               src="/images/hero/logo-beige.png"
               alt="Eclipse di Luna"
-              width={200}
-              height={240}
-              className="w-[180px] h-auto"
+              width={244}
+              height={293}
+              className="w-full max-w-[244px] h-auto"
             />
-          </div>
+          </Link>
 
-          {/* Locations grid (2x2) — always 2 cols, including mobile */}
-          <div className="grid grid-cols-2 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10">
             {LOCATIONS.map((loc) => (
-              <div key={loc.slug} className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <PinIcon />
+              <div key={loc.name} className="flex flex-col gap-2">
+                <div className="flex items-center" style={{ marginBottom: '8px' }}>
+                  <span style={{ marginRight: '10px' }}>
+                    <PinIcon />
+                  </span>
                   <h3
-                    className="text-white"
                     style={{
-                      fontFamily: FONT_HEADING,
-                      fontSize: '22px',
+                      fontFamily: FONT_BODY,
+                      fontSize: '16px',
                       fontWeight: 400,
+                      color: '#FEFAF5',
+                      margin: 0,
                     }}
                   >
                     {loc.name}
                   </h3>
                 </div>
-                <ul className="flex flex-col gap-1.5">
+                <ul className="flex flex-col" style={{ gap: '12px' }}>
                   {loc.links.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-[#F4CE9F] hover:text-white transition-colors"
-                        style={{ fontFamily: FONT_BODY, fontSize: '16px' }}
+                        className="transition-colors"
+                        style={{
+                          fontFamily: FONT_BODY,
+                          fontSize: '16px',
+                          fontWeight: 600,
+                          color: '#F4CE9F',
+                          textDecoration: 'none',
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = '#FAF0E3')}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = '#F4CE9F')}
                       >
                         {link.label}
                       </Link>
@@ -215,28 +232,37 @@ export function Footer() {
             ))}
           </div>
 
-          {/* More column */}
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <MoreIcon />
+          <div className="flex flex-col" style={{ width: '100%', maxWidth: '190px' }}>
+            <div className="flex items-center" style={{ marginBottom: '8px' }}>
+              <span style={{ marginRight: '10px' }}>
+                <MoreIcon />
+              </span>
               <h3
-                className="text-white"
                 style={{
-                  fontFamily: FONT_HEADING,
-                  fontSize: '22px',
+                  fontFamily: FONT_BODY,
+                  fontSize: '16px',
                   fontWeight: 400,
+                  color: '#FEFAF5',
+                  margin: 0,
                 }}
               >
                 More
               </h3>
             </div>
-            <ul className="flex flex-col gap-1.5">
+            <ul className="flex flex-col" style={{ gap: '12px', marginBottom: '20px' }}>
               {MORE_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[#F4CE9F] hover:text-white transition-colors"
-                    style={{ fontFamily: FONT_BODY, fontSize: '16px' }}
+                    style={{
+                      fontFamily: FONT_BODY,
+                      fontSize: '16px',
+                      fontWeight: 600,
+                      color: '#F4CE9F',
+                      textDecoration: 'none',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#FAF0E3')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = '#F4CE9F')}
                   >
                     {link.label}
                   </Link>
@@ -245,14 +271,24 @@ export function Footer() {
             </ul>
             <Link
               href="/contact-us"
-              className="inline-flex items-center justify-center h-[42px] px-5 rounded-full uppercase font-semibold text-sm hover:opacity-90 transition-opacity self-start mt-3"
+              className="inline-flex items-center justify-center transition-colors duration-200"
               style={{
+                height: '42px',
+                padding: '10px 20px',
                 backgroundColor: '#780C06',
-                color: '#F4CE9F',
                 border: '1px solid #F4CE9F',
+                borderRadius: '500px',
+                color: '#F4CE9F',
                 fontFamily: FONT_BODY,
+                fontSize: '16px',
                 fontWeight: 600,
+                lineHeight: '16px',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                alignSelf: 'flex-start',
               }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#000000')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#780C06')}
             >
               Contact Us
             </Link>
@@ -260,30 +296,59 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Credit strip — "powered by RestoExperience" on left, marketing credit on right */}
-      <div className="border-t border-white/10 py-3 px-9 bg-[#FCF8EE]">
-        <div className="max-w-[1280px] mx-auto flex items-center justify-between flex-wrap gap-2">
+      <div style={{ backgroundColor: '#FFFFFF' }} className="py-4">
+        <div className="max-w-[1180px] mx-auto px-4 lg:px-0 flex flex-col lg:flex-row items-center justify-between gap-4">
           <a
-            href={SITE_CREDIT.href}
+            href="https://restoexp.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-xs text-[#1f1815]/70 hover:text-[#1f1815] transition-colors"
-            style={{ fontFamily: FONT_BODY }}
+            className="flex items-center"
           >
-            <span>powered by</span>
-            <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-[#1f1815] text-[#F4CE9F]">
-              <span className="w-4 h-4 rounded-full bg-[#780C06]" />
-              <span className="font-semibold">Resto Experience®</span>
-            </span>
+            <Image
+              src="/images/footer/restoexp-pill.webp"
+              alt="Resto Experience"
+              width={273}
+              height={36}
+              style={{ width: 'auto', height: '36px' }}
+            />
           </a>
+
           <a
-            href={SITE_CREDIT.href}
+            href="https://restoexp.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-[#1f1815]/70 hover:text-[#1f1815] transition-colors"
-            style={{ fontFamily: FONT_BODY }}
+            className="flex items-center gap-[15px]"
+            style={{ textDecoration: 'none' }}
           >
-            {SITE_CREDIT.label} <span className="mx-2">|</span> {SITE_CREDIT.year}
+            <span
+              style={{
+                fontFamily: FONT_BODY,
+                fontSize: '14px',
+                fontWeight: 400,
+                lineHeight: '30px',
+                color: '#5C5C5C',
+              }}
+            >
+              Restaurant Marketing, Content &amp; Web Design
+            </span>
+            <Image
+              src="/images/footer/restoexp-divider.svg"
+              alt=""
+              width={2}
+              height={24}
+              style={{ opacity: 0.7 }}
+            />
+            <span
+              style={{
+                fontFamily: FONT_BODY,
+                fontSize: '14px',
+                fontWeight: 400,
+                lineHeight: '30px',
+                color: '#5C5C5C',
+              }}
+            >
+              2026
+            </span>
           </a>
         </div>
       </div>
