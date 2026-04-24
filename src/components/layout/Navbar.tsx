@@ -78,7 +78,7 @@ export function Navbar() {
         <div className="max-w-[1280px] mx-auto px-4 lg:px-9 py-4 flex items-center justify-between relative">
           <Link href="/" aria-label="Eclipse di Luna" className="flex-shrink-0">
             <Image
-              src="/images/hero/logo-white.png"
+              src="/images/hero/logo-white.webp"
               alt="Eclipse di Luna"
               width={1836}
               height={1570}
@@ -245,7 +245,7 @@ export function Navbar() {
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-[60] flex flex-col" style={{ backgroundColor: '#372822' }}>
           <div className="flex items-center justify-between px-4 py-4">
-            <Image src="/images/hero/logo-white.png" alt="Eclipse di Luna" width={1836} height={1570} className="h-14 w-auto" />
+            <Image src="/images/hero/logo-white.webp" alt="Eclipse di Luna" width={1836} height={1570} className="h-14 w-auto" />
             <button
               type="button"
               onClick={() => setMobileOpen(false)}

@@ -10,8 +10,8 @@ export function OrganizationSchema() {
     '@id': `${SITE_URL}/#restaurant`,
     name: 'Eclipse di Luna',
     url: SITE_URL,
-    logo: `${SITE_URL}/images/hero/logo-beige.png`,
-    image: `${SITE_URL}/images/hero/logo-white.png`,
+    logo: `${SITE_URL}/images/hero/logo-beige.webp`,
+    image: `${SITE_URL}/images/hero/logo-white.webp`,
     description:
       'Celebrating Latin & Spanish cuisine in Atlanta — tapas, cocktails, and live entertainment across 4 locations.',
     servesCuisine: ['Spanish', 'Latin American', 'Tapas'],

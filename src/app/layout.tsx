@@ -85,7 +85,7 @@ export const metadata: Metadata = {
       'Join Eclipse di Luna for a culinary journey through Latin and Spanish culture with our vibrant tapas bar and restaurant | Atlanta',
     images: [
       {
-        url: '/images/hero/logo-white.png',
+        url: '/images/hero/logo-white.webp',
         width: 1200,
         height: 630,
         alt: 'Eclipse di Luna — Restaurant & Tapas Bar',
@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     title: 'Eclipse di Luna | Celebrating Latin & Spanish Cuisine in Atlanta',
     description:
       'Join Eclipse di Luna for a culinary journey through Latin and Spanish culture with our vibrant tapas bar and restaurant | Atlanta',
-    images: ['/images/hero/logo-white.png'],
+    images: ['/images/hero/logo-white.webp'],
   },
   robots: {
     index: true,

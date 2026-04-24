@@ -20,8 +20,9 @@ export function Hero() {
         loop
         muted
         playsInline
+        preload="metadata"
         className="absolute inset-0 w-full h-full object-cover"
-        poster="/images/hero/poster.jpg"
+        poster="/images/hero/poster.webp"
       >
         <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
@@ -35,7 +36,7 @@ export function Hero() {
           className="relative mb-4 w-[240px] h-[205px] md:w-[300px] md:h-[257px] lg:w-[350px] lg:h-[299px]"
         >
           <Image
-            src="/images/hero/logo-white.png"
+            src="/images/hero/logo-white.webp"
             alt="Eclipse di Luna - Restaurant & Tapas Bar"
             fill
             sizes="(max-width: 768px) 240px, (max-width: 1024px) 300px, 350px"

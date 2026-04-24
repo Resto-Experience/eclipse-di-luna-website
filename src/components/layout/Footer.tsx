@@ -167,7 +167,7 @@ export function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-[244px_1fr_190px] gap-12 items-start">
           <Link href="/" className="flex justify-center lg:justify-start">
             <Image
-              src="/images/hero/logo-beige.png"
+              src="/images/hero/logo-beige.webp"
               alt="Eclipse di Luna"
               width={244}
               height={293}
