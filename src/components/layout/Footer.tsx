@@ -53,27 +53,6 @@ const MORE_LINKS = [
   { label: 'Blog', href: '/blog' },
 ];
 
-function PinIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M11.5 11.3c-.66 0-1.3-.26-1.77-.73a2.5 2.5 0 01-.73-1.77c0-.66.26-1.3.73-1.77A2.5 2.5 0 0111.5 6.3c.66 0 1.3.26 1.77.73a2.5 2.5 0 01.73 1.77c0 .66-.26 1.3-.73 1.77a2.5 2.5 0 01-1.77.73zm0-9.5c-1.86 0-3.64.74-4.95 2.05A7 7 0 004.5 8.8c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-2.05-4.95A7 7 0 0011.5 1.8z"
-        fill="#F4CE9F"
-      />
-    </svg>
-  );
-}
-
-function MoreIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <circle cx="12" cy="12" r="9" stroke="#F4CE9F" strokeWidth="2" fill="none" />
-      <circle cx="8" cy="12" r="0.9" fill="#F4CE9F" />
-      <circle cx="12" cy="12" r="0.9" fill="#F4CE9F" />
-      <circle cx="16" cy="12" r="0.9" fill="#F4CE9F" />
-    </svg>
-  );
-}
 
 export function Footer() {
   const [email, setEmail] = useState('');
@@ -177,10 +156,10 @@ export function Footer() {
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-10">
             {LOCATIONS.map((loc) => (
-              <div key={loc.name} className="flex flex-col gap-2">
+              <div key={loc.name} className="flex flex-col gap-2 items-center lg:items-start text-center lg:text-left">
                 <div className="flex items-center" style={{ marginBottom: '8px' }}>
                   <Image
-                    src="/images/icons/tabler-map-pin-hero.svg"
+                    src="/images/icons/tabler-map-pin-footer.svg"
                     alt=""
                     width={24}
                     height={24}
@@ -198,7 +177,7 @@ export function Footer() {
                     {loc.name}
                   </h3>
                 </div>
-                <ul className="flex flex-col" style={{ gap: '12px' }}>
+                <ul className="flex flex-col items-center lg:items-start" style={{ gap: '12px' }}>
                   {loc.links.map((link) => (
                     <li key={link.href}>
                       <Link
@@ -223,17 +202,21 @@ export function Footer() {
             ))}
           </div>
 
-          <div className="flex flex-col" style={{ width: '100%', maxWidth: '190px' }}>
+          <div className="flex flex-col items-center lg:items-start mx-auto lg:mx-0 text-center lg:text-left" style={{ width: '100%', maxWidth: '190px' }}>
             <div className="flex items-center" style={{ marginBottom: '8px' }}>
-              <span style={{ marginRight: '10px' }}>
-                <MoreIcon />
-              </span>
+              <Image
+                src="/images/icons/tabler-dots-circle.svg"
+                alt=""
+                width={24}
+                height={24}
+                style={{ marginRight: '10px' }}
+              />
               <h3
                 style={{
-                  fontFamily: FONT_BODY,
+                  fontFamily: 'var(--font-nugros), Arial, sans-serif',
                   fontSize: '16px',
                   fontWeight: 400,
-                  color: '#FEFAF5',
+                  color: '#FCEAC9',
                   margin: 0,
                 }}
               >
@@ -304,11 +287,12 @@ export function Footer() {
             />
           </a>
 
+          {/* Desktop: inline row — text, divider, 2026 */}
           <a
             href="https://restoexp.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-[15px]"
+            className="hidden lg:flex items-center gap-[15px]"
             style={{ textDecoration: 'none' }}
           >
             <span
@@ -335,6 +319,49 @@ export function Footer() {
                 fontSize: '14px',
                 fontWeight: 400,
                 lineHeight: '30px',
+                color: '#5C5C5C',
+              }}
+            >
+              2026
+            </span>
+          </a>
+
+          {/* Mobile: stacked — text, horizontal divider, 2026 below */}
+          <a
+            href="https://restoexp.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="lg:hidden flex flex-col items-center gap-2 w-full"
+            style={{ textDecoration: 'none' }}
+          >
+            <span
+              className="text-center"
+              style={{
+                fontFamily: FONT_BODY,
+                fontSize: '14px',
+                fontWeight: 400,
+                lineHeight: '20px',
+                color: '#5C5C5C',
+              }}
+            >
+              Restaurant Marketing, Content &amp; Web Design
+            </span>
+            <span
+              aria-hidden
+              style={{
+                display: 'block',
+                width: '160px',
+                height: '1px',
+                backgroundColor: '#5C5C5C',
+                opacity: 0.5,
+              }}
+            />
+            <span
+              style={{
+                fontFamily: FONT_BODY,
+                fontSize: '14px',
+                fontWeight: 400,
+                lineHeight: '20px',
                 color: '#5C5C5C',
               }}
             >
