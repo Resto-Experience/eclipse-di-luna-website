@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { getAllLocations } from '@/data/locations';
 import { Reveal } from '@/components/ui/Reveal';
+import { OrderOnlineModal, ReserveTableModal } from '@/components/sections/HeroModals';
 
 const GOOGLE_MAPS_LINKS: Record<string, string> = {
   alpharetta: 'https://maps.app.goo.gl/L8XXEnFyiuuPY8zq7',
@@ -12,6 +14,9 @@ const GOOGLE_MAPS_LINKS: Record<string, string> = {
 };
 
 export function Hero() {
+  const [modal, setModal] = useState<'reserve' | 'order' | null>(null);
+  const close = () => setModal(null);
+
   return (
     <section className="relative h-dvh min-h-[700px] flex flex-col items-center justify-center overflow-hidden">
       {/* Video background */}
@@ -72,8 +77,9 @@ export function Hero() {
             Desktop (sm+): side-by-side content-width, centered. */}
         <div className="w-fit mx-auto grid grid-cols-1 gap-3 mt-4 sm:flex sm:flex-row sm:justify-center">
           {/* Reserve A Table — burgundy bg, hovers to black */}
-          <a
-            href="#"
+          <button
+            type="button"
+            onClick={() => setModal('reserve')}
             className="w-full sm:w-auto flex items-center justify-center h-[46px] px-5 rounded-full uppercase font-semibold text-base cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
             style={{
               fontFamily: 'var(--font-button), Arial, sans-serif',
@@ -88,10 +94,11 @@ export function Hero() {
               className="mr-2"
             />
             Reserve A Table
-          </a>
+          </button>
           {/* Order Online — BLACK bg, hovers to burgundy */}
-          <a
-            href="#"
+          <button
+            type="button"
+            onClick={() => setModal('order')}
             className="w-full sm:w-auto flex items-center justify-center h-[46px] px-5 rounded-full uppercase font-semibold text-base cursor-pointer bg-[#000000] hover:bg-[#780C06] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
             style={{
               fontFamily: 'var(--font-button), Arial, sans-serif',
@@ -99,7 +106,7 @@ export function Hero() {
             }}
           >
             Order Online
-          </a>
+          </button>
         </div>
       </Reveal>
 
@@ -163,6 +170,9 @@ export function Hero() {
           </span>
         </a>
       </Reveal>
+
+      <ReserveTableModal open={modal === 'reserve'} onClose={close} />
+      <OrderOnlineModal open={modal === 'order'} onClose={close} />
     </section>
   );
 }
