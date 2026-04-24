@@ -328,10 +328,9 @@ export function Footer() {
             aria-hidden
             style={{
               display: 'block',
-              width: '160px',
+              width: '220px',
               height: '1px',
-              backgroundColor: '#5C5C5C',
-              opacity: 0.5,
+              background: 'linear-gradient(to right, transparent, #5C5C5C 50%, transparent)',
             }}
           />
           <span
