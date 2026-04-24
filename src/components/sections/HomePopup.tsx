@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import Image from 'next/image';
 
 const STORAGE_KEY = 'edl-home-popup-dismissed';
 const LINK_HREF = '/location-dunwoody/#Entertainment-Dunwoody';
@@ -49,50 +49,51 @@ export function HomePopup() {
         className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
         tabIndex={-1}
       />
-      <div className="relative w-full max-w-[600px]">
+      <div className="relative w-full max-w-[600px] md:max-w-[600px] max-w-[370px]">
         <button
           type="button"
           onClick={close}
           aria-label="Close"
-          className="absolute z-10 w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer shadow-md"
-          style={{ top: '10px', right: '10px' }}
+          className="absolute z-10 w-7 h-7 flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
+          style={{
+            top: '10px',
+            right: '10px',
+            backgroundColor: '#F4CE9F',
+            borderRadius: '8px',
+          }}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-            <path d="M13 1L1 13M1 1L13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M13 1L1 13M1 1L13 13" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        {/* Desktop bg — 600×400 landscape */}
-        <Link
+        {/* Full page nav via plain <a> guarantees the hash lands in window.location
+            before LocationPage's mount useEffect reads it (Next/Link does client-side
+            routing which can race with the tab-hash resolver). */}
+        <a
           href={LINK_HREF}
-          onClick={close}
           aria-label="See Latin Thursday Night events at Dunwoody"
-          className="hidden md:block overflow-hidden rounded-[12px] shadow-2xl"
-          style={{
-            aspectRatio: '600 / 400',
-            backgroundImage: 'url(/images/popups/latin-thursday-desktop.avif)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          className="block overflow-hidden rounded-[12px] shadow-2xl"
         >
           <span className="sr-only">Latin Thursday Night — Dunwoody</span>
-        </Link>
-        {/* Mobile bg — 370×480 portrait */}
-        <Link
-          href={LINK_HREF}
-          onClick={close}
-          aria-label="See Latin Thursday Night events at Dunwoody"
-          className="md:hidden block overflow-hidden rounded-[12px] shadow-2xl mx-auto"
-          style={{
-            width: '100%',
-            maxWidth: '370px',
-            aspectRatio: '370 / 480',
-            backgroundImage: 'url(/images/popups/latin-thursday-mobile.avif)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <span className="sr-only">Latin Thursday Night — Dunwoody</span>
-        </Link>
+          <Image
+            src="/images/popups/latin-thursday-desktop.avif"
+            alt="Latin Thursday Night — Every week DJ 10pm-2am, live music from 7pm, delicious tapas and special drinks at Dunwoody"
+            width={600}
+            height={400}
+            priority
+            sizes="(max-width: 767px) 0px, 600px"
+            className="hidden md:block w-full h-auto"
+          />
+          <Image
+            src="/images/popups/latin-thursday-mobile.avif"
+            alt="Latin Thursday Night — Every week DJ 10pm-2am, live music from 7pm, delicious tapas and special drinks at Dunwoody"
+            width={740}
+            height={960}
+            priority
+            sizes="(max-width: 767px) 370px, 0px"
+            className="md:hidden w-full h-auto"
+          />
+        </a>
       </div>
     </div>
   );
