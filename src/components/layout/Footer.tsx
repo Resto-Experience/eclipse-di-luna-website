@@ -167,10 +167,11 @@ export function Footer() {
                   />
                   <h3
                     style={{
-                      fontFamily: 'var(--font-nugros), Arial, sans-serif',
+                      fontFamily: FONT_BODY,
                       fontSize: '16px',
-                      fontWeight: 400,
-                      color: '#FCEAC9',
+                      fontWeight: 700,
+                      lineHeight: '30px',
+                      color: '#FEFAF5',
                       margin: 0,
                     }}
                   >
@@ -213,10 +214,11 @@ export function Footer() {
               />
               <h3
                 style={{
-                  fontFamily: 'var(--font-nugros), Arial, sans-serif',
+                  fontFamily: FONT_BODY,
                   fontSize: '16px',
-                  fontWeight: 400,
-                  color: '#FCEAC9',
+                  fontWeight: 700,
+                  lineHeight: '30px',
+                  color: '#FEFAF5',
                   margin: 0,
                 }}
               >
@@ -324,14 +326,12 @@ export function Footer() {
             height={36}
             style={{ width: 'auto', height: '36px' }}
           />
-          <span
-            aria-hidden
-            style={{
-              display: 'block',
-              width: '220px',
-              height: '1px',
-              background: 'linear-gradient(to right, transparent, #5C5C5C 50%, transparent)',
-            }}
+          <Image
+            src="/images/footer/restoexp-divider-mobile.svg"
+            alt=""
+            width={283}
+            height={2}
+            style={{ width: '283px', height: 'auto', maxWidth: '100%' }}
           />
           <span
             className="text-center"
