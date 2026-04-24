@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
+import { Reveal } from '@/components/ui/Reveal';
 
 const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
 const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
@@ -49,7 +50,8 @@ export function AboutSection() {
       <div className="max-w-[1280px] mx-auto px-4 lg:px-9 flex flex-col gap-16 lg:gap-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left on desktop, BELOW image on mobile: Text */}
-        <div className="flex flex-col gap-6 order-2 lg:order-1">
+        <Reveal variant="fade-left" duration={800} delay={100} className="order-2 lg:order-1">
+        <div className="flex flex-col gap-6">
           {/* About Us pill SVG */}
           <Image
             src="/images/about/about-us-pill.svg"
@@ -102,9 +104,11 @@ export function AboutSection() {
             </a>
           </div>
         </div>
+        </Reveal>
 
         {/* Right on desktop, ABOVE text on mobile: Image carousel */}
-        <div className="relative order-1 lg:order-2">
+        <Reveal variant="fade-right" duration={800} className="order-1 lg:order-2">
+        <div className="relative">
           <div className="overflow-hidden rounded-[10px]" ref={emblaRef}>
             <div className="flex">
               {SLIDES.map((slide, i) => (
@@ -172,10 +176,12 @@ export function AboutSection() {
             </button>
           </div>
         </div>
+        </Reveal>
       </div>
 
       {/* OpenTable trust badge — separate element below carousel + buttons.
           Live uses two distinct images (mobile = vertical, desktop = horizontal banner). */}
+      <Reveal variant="fade-up" duration={700}>
       <div className="rounded-3xl overflow-hidden">
         <Image
           src="/images/opentable/opentable-mobile.webp"
@@ -194,6 +200,7 @@ export function AboutSection() {
           sizes="(min-width: 1024px) 1180px, 0px"
         />
       </div>
+      </Reveal>
       </div>
     </section>
   );

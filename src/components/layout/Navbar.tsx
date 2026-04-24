@@ -29,6 +29,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
   const isHome = pathname === '/';
@@ -36,6 +37,13 @@ export function Navbar() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', onScroll, { passive: true });
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      setMounted(true);
+    } else {
+      const raf = requestAnimationFrame(() => setMounted(true));
+      return () => cancelAnimationFrame(raf);
+    }
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -57,7 +65,16 @@ export function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${navClass}`}>
+      <nav
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${navClass}`}
+        style={{
+          transform: mounted ? 'translateY(0)' : 'translateY(-100%)',
+          opacity: mounted ? 1 : 0,
+          transitionProperty: 'transform, opacity, background-color, border-color',
+          transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          transitionDuration: '500ms',
+        }}
+      >
         <div className="max-w-[1280px] mx-auto px-4 lg:px-9 py-4 flex items-center justify-between relative">
           <Link href="/" aria-label="Eclipse di Luna" className="flex-shrink-0">
             <Image
@@ -118,7 +135,7 @@ export function Navbar() {
 
                     <div
                       className={`absolute left-1/2 -translate-x-1/2 top-full transition-all duration-200 ${openDropdown === item.label ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'}`}
-                      style={{ paddingTop: '18px' }}
+                      style={{ paddingTop: '16px' }}
                     >
                       <div
                         className="rounded-[8px]"

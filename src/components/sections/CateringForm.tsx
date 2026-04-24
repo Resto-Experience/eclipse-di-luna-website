@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Reveal } from '@/components/ui/Reveal';
 import { getAllLocations } from '@/data/locations';
 import { Field, SelectField, TextareaField, SubmitButton } from './FormFields';
 
@@ -21,8 +22,9 @@ export function CateringForm() {
 
   return (
     <div className="max-w-[1192px] mx-auto rounded-[8px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 bg-white">
+      <Reveal variant="fade-up" duration={700} className="h-full">
       <div
-        className="relative flex flex-col justify-center items-start p-8 lg:p-10 min-h-[280px]"
+        className="relative flex flex-col justify-center items-start p-8 lg:p-10 min-h-[280px] h-full"
         style={{
           backgroundImage: 'url(/images/catering/form-bg.webp)',
           backgroundSize: 'cover',
@@ -57,7 +59,9 @@ export function CateringForm() {
           </p>
         </div>
       </div>
+      </Reveal>
 
+      <Reveal variant="fade-up" duration={700} delay={200}>
       <form onSubmit={onSubmit} className="px-7 py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Field label="First Name" name="firstName" required placeholder="First name" />
         <Field label="Last Name" name="lastName" required placeholder="Last name" />
@@ -78,6 +82,7 @@ export function CateringForm() {
           <SubmitButton submitted={submitted} />
         </div>
       </form>
+      </Reveal>
     </div>
   );
 }

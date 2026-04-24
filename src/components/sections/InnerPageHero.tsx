@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Reveal } from '@/components/ui/Reveal';
 
 export function InnerPageHero({
   title,
@@ -8,6 +9,9 @@ export function InnerPageHero({
   iconHeight = 72,
   bgDesktop,
   bgMobile,
+  titleMaxWidth,
+  lineHeight = '44px',
+  height = 'lg:h-[495px]',
 }: {
   title: string;
   subtitle?: string;
@@ -16,9 +20,12 @@ export function InnerPageHero({
   iconHeight?: number;
   bgDesktop: string;
   bgMobile?: string;
+  titleMaxWidth?: string;
+  lineHeight?: string;
+  height?: string;
 }) {
   return (
-    <section className="relative w-full h-[616px] lg:h-[495px] flex flex-col items-center justify-center overflow-hidden">
+    <section className={`relative w-full h-[616px] ${height} flex flex-col items-center justify-center overflow-hidden`}>
       <Image
         src={bgMobile || bgDesktop}
         alt=""
@@ -35,7 +42,7 @@ export function InnerPageHero({
         className="object-cover hidden lg:block"
         sizes="100vw"
       />
-      <div className="relative z-10 flex flex-col items-center text-center px-4">
+      <Reveal onMount variant="zoom-in" duration={800} delay={200} className="relative z-10 flex flex-col items-center text-center px-4">
         {icon && (
           <Image
             src={icon}
@@ -49,11 +56,12 @@ export function InnerPageHero({
           style={{
             fontFamily: 'var(--font-heading)',
             fontSize: 'clamp(42px, 5vw, 72px)',
-            lineHeight: '44px',
+            lineHeight,
             fontWeight: 400,
             color: '#FFFFFF',
             marginTop: '20px',
             marginBottom: '10px',
+            maxWidth: titleMaxWidth,
           }}
         >
           {title}
@@ -69,7 +77,7 @@ export function InnerPageHero({
             {subtitle}
           </p>
         )}
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { Reveal } from '@/components/ui/Reveal';
 import type { Location, LocationSlug } from '@/types/location';
 import type { LocationMenu, MenuItem, MenuTab, MenuTag } from '@/types/menu';
 
@@ -62,7 +63,7 @@ function DesktopMenuHero({ name, location, address, hasBrunch }: { name: string;
       style={{ height: '500px' }}
     >
       <Image src={location.heroImage} alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} />
-      <div className="relative z-[1] w-full" style={{ maxWidth: '1180px', marginBottom: '48px' }}>
+      <Reveal onMount variant="zoom-in" duration={800} delay={200} className="relative z-[1] w-full" style={{ maxWidth: '1180px', marginBottom: '48px' }}>
         <div className="flex flex-row items-stretch" style={{ height: '192px' }}>
           <div className="flex items-start justify-center flex-shrink-0" style={{ width: '192px', height: '192px' }}>
             <Image
@@ -110,7 +111,7 @@ function DesktopMenuHero({ name, location, address, hasBrunch }: { name: string;
             </HeroButton>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -122,81 +123,106 @@ function MobileMenuHero({ name, location, address, hasBrunch }: { name: string; 
       className="lg:hidden relative w-full"
       style={{ backgroundColor: '#372822', padding: '112px 16px 24px' }}
     >
-      <h1
-        style={{
-          fontFamily: 'var(--font-heading)',
-          fontSize: '26px',
-          lineHeight: '44px',
-          fontWeight: 400,
-          color: '#FEFAF5',
-          margin: '20px 0 10px',
-        }}
-      >
-        {name}
-      </h1>
-      <p
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: '16px',
-          lineHeight: '20px',
-          fontWeight: 600,
-          color: '#FAE8D3',
-          margin: '0 0 10px',
-        }}
-      >
-        RESTAURANT &amp; TAPAS BAR
-      </p>
-
-      <div className="flex items-center" style={{ height: '64px', paddingRight: 0, gap: 0 }}>
-        <span style={{ paddingRight: '10px', display: 'inline-flex' }}>
-          <MapPinIcon size={24} color="#F4CE9F" />
-        </span>
-        <a
-          href={location.links.googleMaps}
-          target="_blank"
-          rel="noopener noreferrer"
+      <Reveal onMount variant="zoom-in" duration={800} delay={200}>
+        <h1
           style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '14px',
-            lineHeight: '20px',
-            fontWeight: 700,
-            color: '#F4CE9F',
-            textDecoration: 'none',
+            fontFamily: 'var(--font-heading)',
+            fontSize: '26px',
+            lineHeight: '44px',
+            fontWeight: 400,
+            color: '#FEFAF5',
+            margin: '20px 0 10px',
           }}
         >
-          {address}
-        </a>
-      </div>
+          {name}
+        </h1>
+        <p
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '16px',
+            lineHeight: '20px',
+            fontWeight: 600,
+            color: '#FAE8D3',
+            margin: '0 0 10px',
+          }}
+        >
+          RESTAURANT &amp; TAPAS BAR
+        </p>
 
-      <a
-        href={locationHref}
-        className="flex items-center justify-center"
-        style={{
-          width: '100%',
-          height: '40px',
-          maxHeight: '40px',
-          padding: '10px 14px',
-          backgroundColor: '#110601',
-          border: '1px solid #F6D8B2',
-          borderRadius: '500px',
-          color: '#F6D8B2',
-          fontFamily: 'var(--font-body)',
-          fontSize: '15px',
-          lineHeight: '20px',
-          fontWeight: 600,
-          textTransform: 'uppercase',
-          textDecoration: 'none',
-          whiteSpace: 'nowrap',
-          marginTop: '10px',
-        }}
-      >
-        See More About
-      </a>
-
-      <div className="flex flex-row" style={{ gap: '5px', marginTop: '10px' }}>
-        {hasBrunch && (
+        <div className="flex items-center" style={{ height: '64px', paddingRight: 0, gap: 0 }}>
+          <span style={{ paddingRight: '10px', display: 'inline-flex' }}>
+            <MapPinIcon size={24} color="#F4CE9F" />
+          </span>
           <a
-            href="#section-brunch"
+            href={location.links.googleMaps}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '14px',
+              lineHeight: '20px',
+              fontWeight: 700,
+              color: '#F4CE9F',
+              textDecoration: 'none',
+            }}
+          >
+            {address}
+          </a>
+        </div>
+
+        <a
+          href={locationHref}
+          className="flex items-center justify-center"
+          style={{
+            width: '100%',
+            height: '40px',
+            maxHeight: '40px',
+            padding: '10px 14px',
+            backgroundColor: '#110601',
+            border: '1px solid #F6D8B2',
+            borderRadius: '500px',
+            color: '#F6D8B2',
+            fontFamily: 'var(--font-body)',
+            fontSize: '15px',
+            lineHeight: '20px',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            textDecoration: 'none',
+            whiteSpace: 'nowrap',
+            marginTop: '10px',
+          }}
+        >
+          See More About
+        </a>
+
+        <div className="flex flex-row" style={{ gap: '5px', marginTop: '10px' }}>
+          {hasBrunch && (
+            <a
+              href="#section-brunch"
+              className="flex items-center justify-center"
+              style={{
+                flex: 1,
+                height: '40px',
+                maxHeight: '40px',
+                padding: '9px 10px',
+                backgroundColor: '#791C11',
+                border: '1px solid #F6D8B2',
+                borderRadius: '500px',
+                color: '#F6D8B2',
+                fontFamily: 'var(--font-body)',
+                fontSize: '15px',
+                lineHeight: '100%',
+                fontWeight: 600,
+                textTransform: 'capitalize',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              BRUNCH
+            </a>
+          )}
+          <a
+            href="#section-happy-hour"
             className="flex items-center justify-center"
             style={{
               flex: 1,
@@ -216,33 +242,10 @@ function MobileMenuHero({ name, location, address, hasBrunch }: { name: string; 
               whiteSpace: 'nowrap',
             }}
           >
-            BRUNCH
+            HAPPY HOUR
           </a>
-        )}
-        <a
-          href="#section-happy-hour"
-          className="flex items-center justify-center"
-          style={{
-            flex: 1,
-            height: '40px',
-            maxHeight: '40px',
-            padding: '9px 10px',
-            backgroundColor: '#791C11',
-            border: '1px solid #F6D8B2',
-            borderRadius: '500px',
-            color: '#F6D8B2',
-            fontFamily: 'var(--font-body)',
-            fontSize: '15px',
-            lineHeight: '100%',
-            fontWeight: 600,
-            textTransform: 'capitalize',
-            textDecoration: 'none',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          HAPPY HOUR
-        </a>
-      </div>
+        </div>
+      </Reveal>
     </section>
   );
 }

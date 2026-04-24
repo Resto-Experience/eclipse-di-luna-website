@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { InnerPageHero } from '@/components/sections/InnerPageHero';
+import { Reveal } from '@/components/ui/Reveal';
 import { getAllBlogPosts } from '@/data/blog';
 
 export const metadata: Metadata = {
@@ -29,35 +30,39 @@ export default function BlogPage() {
       >
         <div className="max-w-[940px] mx-auto px-4 lg:px-0">
           {/* Section intro: decoration + H2 — matches live (container-140 + heading-18) */}
-          <div className="flex flex-col items-center text-center mx-auto" style={{ marginBottom: '48px' }}>
-            <Image
-              src="/images/blog/intro-ornament.svg"
-              alt=""
-              width={45}
-              height={45}
-              style={{ width: '45px', height: '45px' }}
-            />
-            <h2
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(32px, 4vw, 48px)',
-                lineHeight: '52px',
-                fontWeight: 400,
-                color: '#3C1816',
-                margin: '16px 0 0',
-              }}
-            >
-              From intimate gatherings to large celebrations, we&rsquo;re closer than you think.
-            </h2>
-          </div>
+          <Reveal variant="fade-up" duration={700}>
+            <div className="flex flex-col items-center text-center mx-auto" style={{ marginBottom: '48px' }}>
+              <Image
+                src="/images/blog/intro-ornament.svg"
+                alt=""
+                width={45}
+                height={45}
+                style={{ width: '45px', height: '45px' }}
+              />
+              <h2
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: 'clamp(32px, 4vw, 48px)',
+                  lineHeight: '52px',
+                  fontWeight: 400,
+                  color: '#3C1816',
+                  margin: '16px 0 0',
+                }}
+              >
+                From intimate gatherings to large celebrations, we&rsquo;re closer than you think.
+              </h2>
+            </div>
+          </Reveal>
 
           {/* Cards grid — 2 cols × 460w (live .w-col-6) */}
           <div
             className="grid grid-cols-1 md:grid-cols-2"
             style={{ columnGap: '20px', rowGap: '24px' }}
           >
-            {posts.map((post) => (
-              <BlogCard key={post.slug} slug={post.slug} image={post.image} title={post.title} preview={post.preview} />
+            {posts.map((post, i) => (
+              <Reveal key={post.slug} variant="fade-up" duration={500} delay={Math.min(i, 4) * 100}>
+                <BlogCard slug={post.slug} image={post.image} title={post.title} preview={post.preview} />
+              </Reveal>
             ))}
           </div>
         </div>
@@ -70,12 +75,11 @@ function BlogCard({ slug, image, title, preview }: { slug: string; image: string
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group block overflow-hidden"
+      className="group block overflow-hidden h-full"
       style={{ borderRadius: '10px' }}
     >
-      {/* White inner card (.container-142): bg white, radius 10, padding 20 — matches live */}
       <div
-        className="bg-white transition-shadow duration-300 group-hover:shadow-[0_8px_24px_rgba(0,0,0,0.15)]"
+        className="bg-white transition-shadow duration-300 group-hover:shadow-[0_8px_24px_rgba(0,0,0,0.15)] h-full flex flex-col"
         style={{ borderRadius: '10px', padding: '20px' }}
       >
         {/* Image 418×235 aspect on live; use aspect-[16/9] so it scales with card width */}

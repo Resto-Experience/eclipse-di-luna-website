@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { Reveal } from '@/components/ui/Reveal';
 import { getAllLocations } from '@/data/locations';
 import { Field, SelectField, TextareaField, SubmitButton, FIELD_LABEL_STYLE, FIELD_INPUT_STYLE } from './FormFields';
 
@@ -26,43 +27,46 @@ export function JobsForm() {
 
   return (
     <>
-      <div
-        className="flex flex-col items-center text-center mx-auto"
-        style={{ maxWidth: '940px', marginBottom: '60px' }}
-      >
-        <Image
-          src="/images/jobs/join-team-icon.svg"
-          alt=""
-          width={63}
-          height={46}
-          style={{ width: '63px', height: '46px' }}
-        />
-        <h2
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(32px, 4vw, 48px)',
-            lineHeight: '48px',
-            fontWeight: 400,
-            color: '#3C1816',
-            margin: '20px 0 10px',
-          }}
+      <Reveal variant="fade-up" duration={700}>
+        <div
+          className="flex flex-col items-center text-center mx-auto"
+          style={{ maxWidth: '940px', marginBottom: '60px' }}
         >
-          Join Our Team
-        </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(18px, 2.2vw, 32px)',
-            lineHeight: '36px',
-            fontWeight: 400,
-            color: '#333333',
-            margin: 0,
-          }}
-        >
-          We are hiring! Apply below to become a part of our awesome team and we&rsquo;ll get back to you ASAP!
-        </p>
-      </div>
+          <Image
+            src="/images/jobs/join-team-icon.svg"
+            alt=""
+            width={63}
+            height={46}
+            style={{ width: '63px', height: '46px' }}
+          />
+          <h2
+            style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: 'clamp(32px, 4vw, 48px)',
+              lineHeight: '48px',
+              fontWeight: 400,
+              color: '#3C1816',
+              margin: '20px 0 10px',
+            }}
+          >
+            Join Our Team
+          </h2>
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(18px, 2.2vw, 32px)',
+              lineHeight: '36px',
+              fontWeight: 400,
+              color: '#333333',
+              margin: 0,
+            }}
+          >
+            We are hiring! Apply below to become a part of our awesome team and we&rsquo;ll get back to you ASAP!
+          </p>
+        </div>
+      </Reveal>
 
+      <Reveal variant="fade-up" duration={700} delay={200}>
       <div
         className="mx-auto rounded-[8px] bg-white"
         style={{ maxWidth: '940px', padding: '24px' }}
@@ -120,6 +124,7 @@ export function JobsForm() {
         </div>
       </form>
       </div>
+      </Reveal>
     </>
   );
 }

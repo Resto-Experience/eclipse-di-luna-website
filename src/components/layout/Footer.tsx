@@ -156,20 +156,7 @@ export function Footer() {
                 />
               </div>
               <div className="flex items-end justify-center sm:justify-start">
-                <button
-                  type="submit"
-                  className="h-[48px] px-8 rounded-full uppercase cursor-pointer transition-colors duration-200"
-                  style={{
-                    fontFamily: FONT_BODY,
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    backgroundColor: '#F4CE9F',
-                    color: '#3D0E0B',
-                    border: '1px solid transparent',
-                  }}
-                >
-                  {submitted ? 'Subscribed!' : 'Subscribe'}
-                </button>
+                <SubscribeButton submitted={submitted} />
               </div>
             </form>
           </div>
@@ -192,15 +179,19 @@ export function Footer() {
             {LOCATIONS.map((loc) => (
               <div key={loc.name} className="flex flex-col gap-2">
                 <div className="flex items-center" style={{ marginBottom: '8px' }}>
-                  <span style={{ marginRight: '10px' }}>
-                    <PinIcon />
-                  </span>
+                  <Image
+                    src="/images/icons/tabler-map-pin-hero.svg"
+                    alt=""
+                    width={24}
+                    height={24}
+                    style={{ marginRight: '10px' }}
+                  />
                   <h3
                     style={{
-                      fontFamily: FONT_BODY,
+                      fontFamily: 'var(--font-nugros), Arial, sans-serif',
                       fontSize: '16px',
                       fontWeight: 400,
-                      color: '#FEFAF5',
+                      color: '#FCEAC9',
                       margin: 0,
                     }}
                   >
@@ -353,5 +344,30 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function SubscribeButton({ submitted }: { submitted: boolean }) {
+  const [hover, setHover] = useState(false);
+  const bg = hover ? "#3D0E0B" : "#F4CE9F";
+  const color = hover ? "#F4CE9F" : "#3D0E0B";
+  const borderColor = hover ? "#F4CE9F" : "transparent";
+  return (
+    <button
+      type="submit"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className="h-[48px] px-8 rounded-full uppercase cursor-pointer transition-all duration-200"
+      style={{
+        fontFamily: FONT_BODY,
+        fontSize: "16px",
+        fontWeight: 600,
+        backgroundColor: bg,
+        color,
+        border: `1px solid ${borderColor}`,
+      }}
+    >
+      {submitted ? "Subscribed!" : "Subscribe"}
+    </button>
   );
 }

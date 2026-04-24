@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { REVIEWS } from '@/data/reviews';
+import { Reveal } from '@/components/ui/Reveal';
 
 const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
 const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
@@ -15,6 +16,7 @@ export function ReviewsSection() {
     <section className="relative py-[80px]" style={{ backgroundColor: '#FEF8EC' }}>
       <div className="max-w-[1280px] mx-auto px-4 lg:px-9">
         {/* Heading group */}
+        <Reveal variant="fade-up" duration={700}>
         <div className="flex flex-col items-center text-center gap-3 mb-10">
           {/* Moon decoration */}
           <Image
@@ -48,9 +50,11 @@ export function ReviewsSection() {
           {/* Gold underline */}
           <div className="w-full max-w-[900px] h-[2px] mt-6" style={{ backgroundColor: '#C9923D' }} />
         </div>
+        </Reveal>
       </div>
 
       {/* Marquee ticker — full width */}
+      <Reveal variant="fade-up" duration={600}>
       <div className="overflow-hidden">
         <div className="flex gap-5 animate-marquee" style={{ width: 'max-content' }}>
           {TRIPLED.map((review, i) => (
@@ -93,6 +97,7 @@ export function ReviewsSection() {
           ))}
         </div>
       </div>
+      </Reveal>
     </section>
   );
 }

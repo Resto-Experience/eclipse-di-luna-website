@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Reveal } from '@/components/ui/Reveal';
 
 export function InstagramSection() {
   return (
@@ -11,6 +12,7 @@ export function InstagramSection() {
         {/* Card: pattern bg, phones stuck to bottom, text vertically centered.
             Mobile: stacked (text top w/ 48px top padding, phones below touching bottom edge).
             Desktop: horizontal (phones left-bottom, text right-center). */}
+        <Reveal variant="zoom-in" duration={800}>
         <div
           className="relative overflow-hidden rounded-[25px] lg:rounded-[8px] flex flex-col lg:flex-row min-h-[602px] lg:min-h-[406px]"
           style={{
@@ -53,6 +55,7 @@ export function InstagramSection() {
             </a>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

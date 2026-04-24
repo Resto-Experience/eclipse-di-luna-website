@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Reveal } from '@/components/ui/Reveal';
 
 const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
 const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
@@ -17,6 +18,7 @@ export function GiftCardSection() {
     >
       <div className="max-w-[1280px] mx-auto px-4 lg:px-9 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left: Gift card illustration */}
+        <Reveal variant="fade-left" duration={800}>
         <div className="flex justify-center lg:justify-start">
           <Image
             src="/images/gift-card/gift-card-illustration.avif"
@@ -26,8 +28,10 @@ export function GiftCardSection() {
             className="w-full max-w-[500px] h-auto"
           />
         </div>
+        </Reveal>
 
         {/* Right: Text + CTA */}
+        <Reveal variant="fade-right" duration={800} delay={100}>
         <div className="flex flex-col gap-6 max-w-[500px]">
           {/* Gift Cards pill SVG */}
           <Image
@@ -56,6 +60,7 @@ export function GiftCardSection() {
             Buy a Gift Card
           </a>
         </div>
+        </Reveal>
       </div>
     </section>
   );

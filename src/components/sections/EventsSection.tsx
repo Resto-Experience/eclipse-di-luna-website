@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
+import { Reveal } from '@/components/ui/Reveal';
 
 const BANNERS = [
   {
@@ -10,18 +11,21 @@ const BANNERS = [
     desktop: '/images/events/banner-desktop-1.avif',
     label: 'Salsa Nights',
     alt: 'Salsa Nights at Eclipse di Luna',
+    instagramPost: 'DU1CWfeDxGG',
   },
   {
     mobile: '/images/events/banner-mobile-2.avif',
     desktop: '/images/events/banner-desktop-2.avif',
     label: 'International DJ Nights',
     alt: 'International DJ Nights at Eclipse di Luna',
+    instagramPost: 'DVT9KTUj6Gx',
   },
   {
     mobile: '/images/events/banner-mobile-3.avif',
     desktop: '/images/events/banner-desktop-3.webp',
     label: 'Live Music',
     alt: 'Live Music at Eclipse di Luna',
+    instagramPost: 'DFfrMqZRMk4',
   },
 ];
 
@@ -74,22 +78,34 @@ function CarouselDots({ count, selected, onSelect }: { count: number; selected: 
 }
 
 // Uses two Image elements over <picture> so next/image optimizes each viewport variant.
-function BannerCard({ banner }: { banner: (typeof BANNERS)[number] }) {
+function BannerCard({ banner, onOpen }: { banner: (typeof BANNERS)[number]; onOpen: () => void }) {
   return (
-    <a href="#" className="block relative overflow-hidden rounded-[8px]">
+    <button
+      type="button"
+      onClick={onOpen}
+      className="group block relative overflow-hidden rounded-[8px] w-full cursor-pointer"
+      aria-label={`View ${banner.label} on Instagram`}
+    >
       <div className="relative lg:hidden" style={{ aspectRatio: '716/520' }}>
-        <Image src={banner.mobile} alt={banner.alt} fill className="object-cover" sizes="100vw" />
+        <Image
+          src={banner.mobile}
+          alt={banner.alt}
+          fill
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+          sizes="100vw"
+        />
       </div>
       <div className="relative hidden lg:block" style={{ aspectRatio: '1440/488' }}>
         <Image
           src={banner.desktop}
           alt={banner.alt}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           sizes="(max-width: 1280px) 100vw, 1040px"
         />
       </div>
-    </a>
+      <div className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" aria-hidden />
+    </button>
   );
 }
 
@@ -111,7 +127,6 @@ function CtaCard({ card }: { card: (typeof CTA_CARDS)[number] }) {
         {card.title} <br />{card.titleLine2}
       </h3>
       <div className="flex-1" />
-
       <a
         href={card.href}
         className="text-cta-pill relative z-10 flex items-center justify-center gap-2 h-[44px] w-full rounded-full cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
@@ -119,6 +134,51 @@ function CtaCard({ card }: { card: (typeof CTA_CARDS)[number] }) {
         <Image src={card.icon} alt="" width={20} height={20} className="shrink-0" />
         {card.cta}
       </a>
+    </div>
+  );
+}
+
+function InstagramModal({ postId, onClose }: { postId: string; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 backdrop-blur-sm p-4"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        className="relative"
+        onClick={(e) => e.stopPropagation()}
+        style={{ width: 'min(400px, 90vw)', height: 'min(720px, 92vh)' }}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute z-10 w-9 h-9 rounded-full bg-white/90 text-black flex items-center justify-center hover:bg-white transition-colors cursor-pointer shadow-lg"
+          style={{ top: '-44px', right: '0' }}
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1L13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </button>
+        <iframe
+          src={`https://www.instagram.com/p/${postId}/embed/`}
+          title={`Instagram post ${postId}`}
+          allow="encrypted-media"
+          allowFullScreen
+          scrolling="no"
+          className="w-full h-full bg-white rounded-[12px] shadow-2xl"
+          style={{ border: 0 }}
+        />
+      </div>
     </div>
   );
 }
@@ -160,6 +220,7 @@ function MobileCarousel<T>({ items, render }: { items: T[]; render: (item: T, i:
 }
 
 export function EventsSection() {
+  const [openPost, setOpenPost] = useState<string | null>(null);
   return (
     <section
       className="relative py-[80px]"
@@ -171,7 +232,14 @@ export function EventsSection() {
         backgroundPosition: 'center top',
       }}
     >
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[48px]"
+        style={{ background: 'linear-gradient(to bottom, rgba(254, 248, 236, 0) 0%, #FEF8EC 100%)' }}
+        aria-hidden
+      />
+      {openPost && <InstagramModal postId={openPost} onClose={() => setOpenPost(null)} />}
       <div className="max-w-[1280px] mx-auto px-4 lg:px-9">
+        <Reveal variant="fade-up" duration={700}>
         <div className="flex flex-col items-center text-center gap-3 mb-12">
           <Image
             src="/images/icons/sparkle.svg"
@@ -191,10 +259,13 @@ export function EventsSection() {
             Celebrate, gather, and enjoy <br />unforgettable experiences.
           </h2>
         </div>
+        </Reveal>
 
         <div className="flex flex-col gap-6 max-w-[1040px] mx-auto">
           {BANNERS.map((banner, i) => (
-            <BannerCard key={i} banner={banner} />
+            <Reveal key={i} variant="fade-up" duration={600} delay={Math.min(i, 4) * 100}>
+              <BannerCard banner={banner} onOpen={() => setOpenPost(banner.instagramPost)} />
+            </Reveal>
           ))}
         </div>
 
@@ -208,7 +279,9 @@ export function EventsSection() {
         </div>
         <div className="hidden lg:grid grid-cols-3 gap-0 max-w-[1040px] mx-auto">
           {CTA_CARDS.map((card, i) => (
-            <CtaCard key={i} card={card} />
+            <Reveal key={i} variant="fade-up" duration={600} delay={Math.min(i, 4) * 100}>
+              <CtaCard card={card} />
+            </Reveal>
           ))}
         </div>
       </div>

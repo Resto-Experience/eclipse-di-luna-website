@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { Reveal } from '@/components/ui/Reveal';
 import type { Location } from '@/types/location';
 
 type TabKey = 'overview' | 'order' | 'entertainment' | 'deals';
@@ -16,8 +17,27 @@ const TABS: Array<{ key: TabKey; label: string }> = [
 const FONT_H = 'var(--font-heading)';
 const FONT_B = 'var(--font-body)';
 
+function hashToTab(hash: string): TabKey | null {
+  const h = hash.replace(/^#/, '').toLowerCase();
+  if (h.startsWith('order')) return 'order';
+  if (h.startsWith('entertainment')) return 'entertainment';
+  if (h.startsWith('deals')) return 'deals';
+  if (h.startsWith('overview')) return 'overview';
+  return null;
+}
+
 export function LocationPage({ location }: { location: Location }) {
   const [active, setActive] = useState<TabKey>('overview');
+
+  useEffect(() => {
+    const apply = () => {
+      const tab = hashToTab(window.location.hash);
+      if (tab) setActive(tab);
+    };
+    apply();
+    window.addEventListener('hashchange', apply);
+    return () => window.removeEventListener('hashchange', apply);
+  }, []);
   const name = location.slug.charAt(0).toUpperCase() + location.slug.slice(1);
   const address = `${location.contact.address}. ${location.contact.city}, ${location.contact.state} ${location.contact.zip}`;
 
@@ -65,7 +85,11 @@ function DesktopHero({ name, location, address }: { name: string; location: Loca
     >
       <Image src={heroBg} alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} />
 
-      <div
+      <Reveal
+        onMount
+        variant="zoom-in"
+        duration={800}
+        delay={200}
         className="relative z-[1] w-full"
         style={{ maxWidth: '1180px', marginBottom: '48px' }}
       >
@@ -150,7 +174,7 @@ function DesktopHero({ name, location, address }: { name: string; location: Loca
             <HeroButton href={location.links.reservations} external label="Reservations" />
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -164,6 +188,7 @@ function MobileHero({ name, location, address }: { name: string; location: Locat
         padding: '112px 16px 24px',
       }}
     >
+      <Reveal onMount variant="zoom-in" duration={800} delay={200}>
       <h1
         style={{
           fontFamily: FONT_H,
@@ -259,6 +284,7 @@ function MobileHero({ name, location, address }: { name: string; location: Locat
           RESERVATIONS
         </span>
       </a>
+      </Reveal>
     </section>
   );
 }
@@ -404,6 +430,7 @@ function TabButtonMobile({ label, isActive, onClick }: { label: string; isActive
 
 function OverviewPane({ location, name }: { location: Location; name: string }) {
   return (
+    <Reveal variant="fade-up" duration={600} onMount>
     <div className="flex flex-col lg:flex-row items-start" style={{ gap: '0', width: '100%', maxWidth: '1180px' }}>
       <div
         className="flex flex-col items-start w-full"
@@ -482,6 +509,7 @@ function OverviewPane({ location, name }: { location: Location; name: string }) 
         <HoursCard hours={location.hours} reservationHref={location.links.reservations} />
       </div>
     </div>
+    </Reveal>
   );
 }
 
@@ -713,6 +741,7 @@ function ContactCard({
 
 function OrderPane({ location }: { location: Location }) {
   return (
+    <Reveal variant="fade-up" duration={600} onMount>
     <div
       className="flex flex-col lg:flex-row justify-center items-center w-full mt-5 lg:mt-[130px]"
       style={{ gap: '16px' }}
@@ -748,11 +777,13 @@ function OrderPane({ location }: { location: Location }) {
         aria-label="Order with Uber Eats"
       />
     </div>
+    </Reveal>
   );
 }
 
 function EntertainmentPane({ location, name }: { location: Location; name: string }) {
   return (
+    <Reveal variant="fade-up" duration={600} onMount>
     <div className="flex flex-col w-full" style={{ maxWidth: '1180px', margin: '0 auto' }}>
       <div
         className="flex items-center justify-between w-full"
@@ -890,11 +921,13 @@ function EntertainmentPane({ location, name }: { location: Location; name: strin
         </div>
       ))}
     </div>
+    </Reveal>
   );
 }
 
 function DealsPane({ location }: { location: Location }) {
   return (
+    <Reveal variant="fade-up" duration={600} onMount>
     <div className="flex justify-center w-full">
       <a
         href={`${location.links.menu}#happy-hour`}
@@ -924,6 +957,7 @@ function DealsPane({ location }: { location: Location }) {
         aria-label="View happy hour deals"
       />
     </div>
+    </Reveal>
   );
 }
 

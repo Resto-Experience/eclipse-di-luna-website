@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { getAllLocations } from '@/data/locations';
+import { Reveal } from '@/components/ui/Reveal';
 
 const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
 const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
@@ -32,8 +33,9 @@ export function LocationsSection() {
         backgroundPosition: 'center',
       }}
     >
-      <div className="max-w-[1280px] mx-auto px-4 lg:px-9">
+      <div className="max-w-[1180px] mx-auto px-4 lg:px-9">
         {/* Heading group */}
+        <Reveal variant="fade-up" duration={700}>
         <div className="flex flex-col items-center text-center gap-4 mb-16">
           {/* Moon icon */}
           <Image
@@ -60,6 +62,7 @@ export function LocationsSection() {
             Experience the essence of Latin & Spanish flavors across our unique spaces
           </p>
         </div>
+        </Reveal>
 
         {/* Location cards — ZIGZAG: alternating image-left/right on desktop. Mobile always stacks image-top. */}
         <div className="flex flex-col gap-12 lg:gap-20">
@@ -69,28 +72,46 @@ export function LocationsSection() {
             // Zigzag: index 0,2 → image first (left); index 1,3 → image last (right)
             const imageFirst = i % 2 === 0;
             return (
+              <Reveal key={loc.slug} variant="fade-up" duration={600} delay={Math.min(i, 4) * 100}>
               <div
-                key={loc.slug}
                 className={`flex flex-col lg:flex-row ${imageFirst ? '' : 'lg:flex-row-reverse'} gap-8 lg:gap-12 items-center`}
               >
-                {/* Image */}
-                <div className="relative aspect-[4/3] w-full lg:w-1/2 rounded-2xl overflow-hidden">
+                <div
+                  className="relative w-full lg:w-[525px] lg:flex-shrink-0 overflow-hidden"
+                  style={{ aspectRatio: '525 / 400', borderRadius: '12px' }}
+                >
                   <Image
                     src={`/images/locations/${loc.slug}.avif`}
                     alt={`Eclipse di Luna ${loc.slug}`}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    sizes="(max-width: 1024px) 100vw, 525px"
                   />
                 </div>
 
-                {/* Details — gap-3 (12px) between items; tighter spacing on pills↔address↔CTAs via mt-2. */}
-                <div className="flex flex-col gap-3 w-full lg:w-1/2">
-                  <h3 className="text-display-xs" style={{ color: '#201814' }}>
+                <div className="flex flex-col gap-3 w-full lg:flex-1">
+                  <h3
+                    style={{
+                      fontFamily: FONT_HEADING,
+                      fontSize: '36px',
+                      lineHeight: '36px',
+                      fontWeight: 400,
+                      color: '#201814',
+                    }}
+                  >
                     {loc.slug.charAt(0).toUpperCase() + loc.slug.slice(1)}
                   </h3>
 
-                  <p className="text-body-lg max-w-[500px]" style={{ color: '#201814' }}>
+                  <p
+                    className="max-w-[500px]"
+                    style={{
+                      fontFamily: FONT_BODY,
+                      fontSize: '24px',
+                      lineHeight: '33.6px',
+                      fontWeight: 400,
+                      color: '#201814',
+                    }}
+                  >
                     {desc}
                   </p>
 
@@ -107,7 +128,7 @@ export function LocationsSection() {
                         href={link.href}
                         className="inline-flex items-center h-[37px] px-[10px] bg-[#F8DEBF] text-[#333333] hover:bg-[#201814] hover:text-[#F8DEBF] transition-colors"
                         style={{
-                          fontFamily: 'var(--font-body), "Nunito", sans-serif',
+                          fontFamily: FONT_BODY,
                           fontSize: '18px',
                           fontWeight: 400,
                           lineHeight: 1,
@@ -120,10 +141,13 @@ export function LocationsSection() {
 
                   {/* Address with pin */}
                   <div className="flex items-center gap-2 mt-1">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#780C06" strokeWidth="2">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
+                    <Image
+                      src="/images/icons/tabler-map-pin.svg"
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="flex-shrink-0"
+                    />
                     <a
                       href={addr.href}
                       target="_blank"
@@ -153,6 +177,7 @@ export function LocationsSection() {
                   </div>
                 </div>
               </div>
+              </Reveal>
             );
           })}
         </div>

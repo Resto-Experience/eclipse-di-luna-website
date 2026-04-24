@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { getAllLocations } from '@/data/locations';
+import { Reveal } from '@/components/ui/Reveal';
 
 const GOOGLE_MAPS_LINKS: Record<string, string> = {
   alpharetta: 'https://maps.app.goo.gl/L8XXEnFyiuuPY8zq7',
@@ -28,8 +29,7 @@ export function Hero() {
       {/* Dark overlay — matches Figma: black base + 20% opacity image + gradient */}
       <div className="absolute inset-0 bg-black/70" />
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center gap-4 px-4 lg:px-9 pb-12 w-full max-w-[1180px]">
+      <Reveal onMount variant="zoom-in" duration={800} delay={200} className="relative z-10 flex flex-col items-center gap-4 px-4 lg:px-9 pb-12 w-full max-w-[1180px]">
         {/* Logo — responsive: ~240px mobile, 350px desktop. Aspect 500/428 = 1.168 */}
         <div
           className="relative mb-4 w-[240px] h-[205px] md:w-[300px] md:h-[257px] lg:w-[350px] lg:h-[299px]"
@@ -100,15 +100,19 @@ export function Hero() {
             Order Online
           </a>
         </div>
-      </div>
+      </Reveal>
 
-      {/* Bottom bar — locations + Instagram. Desktop only; constrained to same max-width and padding as Navbar. */}
-      <div className="hidden lg:flex absolute bottom-0 inset-x-0 items-center justify-between max-w-[1280px] mx-auto px-4 lg:px-9 py-6 z-10">
+      <Reveal
+        onMount
+        variant="fade-in"
+        duration={700}
+        delay={600}
+        className="hidden lg:flex absolute bottom-0 inset-x-0 items-center justify-between max-w-[1280px] mx-auto px-4 lg:px-9 py-6 z-10"
+      >
         {/* Location links */}
         <div className="flex items-center gap-3">
-          {/* Globe icon */}
           <Image
-            src="/images/icons/map-pin.svg"
+            src="/images/icons/tabler-map-pin-hero.svg"
             alt=""
             width={24}
             height={24}
@@ -147,8 +151,8 @@ export function Hero() {
           <Image
             src="/images/icons/instagram.svg"
             alt=""
-            width={24}
-            height={24}
+            width={20}
+            height={20}
           />
           <span
             className="text-base whitespace-nowrap"
@@ -157,7 +161,7 @@ export function Hero() {
             @eclipsediluna
           </span>
         </a>
-      </div>
+      </Reveal>
     </section>
   );
 }
