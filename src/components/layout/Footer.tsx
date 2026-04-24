@@ -156,7 +156,7 @@ export function Footer() {
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-10">
             {LOCATIONS.map((loc) => (
-              <div key={loc.name} className="flex flex-col gap-2 items-center lg:items-start text-center lg:text-left">
+              <div key={loc.name} className="flex flex-col gap-2 items-start text-left">
                 <div className="flex items-center" style={{ marginBottom: '8px' }}>
                   <Image
                     src="/images/icons/tabler-map-pin-footer.svg"
@@ -177,7 +177,7 @@ export function Footer() {
                     {loc.name}
                   </h3>
                 </div>
-                <ul className="flex flex-col items-center lg:items-start" style={{ gap: '12px' }}>
+                <ul className="flex flex-col items-start" style={{ gap: '12px' }}>
                   {loc.links.map((link) => (
                     <li key={link.href}>
                       <Link
@@ -245,7 +245,7 @@ export function Footer() {
             </ul>
             <Link
               href="/contact-us"
-              className="inline-flex items-center justify-center transition-colors duration-200"
+              className="inline-flex items-center justify-center transition-colors duration-200 self-center lg:self-start"
               style={{
                 height: '42px',
                 padding: '10px 20px',
@@ -259,7 +259,6 @@ export function Footer() {
                 lineHeight: '16px',
                 textTransform: 'uppercase',
                 textDecoration: 'none',
-                alignSelf: 'flex-start',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#000000')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#780C06')}
@@ -271,7 +270,8 @@ export function Footer() {
       </div>
 
       <div style={{ backgroundColor: '#FFFFFF' }} className="py-4">
-        <div className="max-w-[1180px] mx-auto px-4 lg:px-0 flex flex-col lg:flex-row items-center justify-between gap-4">
+        {/* Desktop: pill | text | vertical divider | 2026 — inline row */}
+        <div className="hidden lg:flex max-w-[1180px] mx-auto px-4 lg:px-0 items-center justify-between gap-4">
           <a
             href="https://restoexp.com/"
             target="_blank"
@@ -286,24 +286,14 @@ export function Footer() {
               style={{ width: 'auto', height: '36px' }}
             />
           </a>
-
-          {/* Desktop: inline row — text, divider, 2026 */}
           <a
             href="https://restoexp.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden lg:flex items-center gap-[15px]"
+            className="flex items-center gap-[15px]"
             style={{ textDecoration: 'none' }}
           >
-            <span
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: '14px',
-                fontWeight: 400,
-                lineHeight: '30px',
-                color: '#5C5C5C',
-              }}
-            >
+            <span style={{ fontFamily: FONT_BODY, fontSize: '14px', fontWeight: 400, lineHeight: '30px', color: '#5C5C5C' }}>
               Restaurant Marketing, Content &amp; Web Design
             </span>
             <Image
@@ -313,62 +303,47 @@ export function Footer() {
               height={24}
               style={{ opacity: 0.7 }}
             />
-            <span
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: '14px',
-                fontWeight: 400,
-                lineHeight: '30px',
-                color: '#5C5C5C',
-              }}
-            >
-              2026
-            </span>
-          </a>
-
-          {/* Mobile: stacked — text, horizontal divider, 2026 below */}
-          <a
-            href="https://restoexp.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="lg:hidden flex flex-col items-center gap-2 w-full"
-            style={{ textDecoration: 'none' }}
-          >
-            <span
-              className="text-center"
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: '14px',
-                fontWeight: 400,
-                lineHeight: '20px',
-                color: '#5C5C5C',
-              }}
-            >
-              Restaurant Marketing, Content &amp; Web Design
-            </span>
-            <span
-              aria-hidden
-              style={{
-                display: 'block',
-                width: '160px',
-                height: '1px',
-                backgroundColor: '#5C5C5C',
-                opacity: 0.5,
-              }}
-            />
-            <span
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: '14px',
-                fontWeight: 400,
-                lineHeight: '20px',
-                color: '#5C5C5C',
-              }}
-            >
+            <span style={{ fontFamily: FONT_BODY, fontSize: '14px', fontWeight: 400, lineHeight: '30px', color: '#5C5C5C' }}>
               2026
             </span>
           </a>
         </div>
+
+        {/* Mobile: pill → horizontal line → text → 2026 (per live .wrapper-footer-mobile-resto-3) */}
+        <a
+          href="https://restoexp.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="lg:hidden flex flex-col items-center gap-3 w-full"
+          style={{ textDecoration: 'none' }}
+        >
+          <Image
+            src="/images/footer/restoexp-pill.webp"
+            alt="Resto Experience"
+            width={273}
+            height={36}
+            style={{ width: 'auto', height: '36px' }}
+          />
+          <span
+            aria-hidden
+            style={{
+              display: 'block',
+              width: '160px',
+              height: '1px',
+              backgroundColor: '#5C5C5C',
+              opacity: 0.5,
+            }}
+          />
+          <span
+            className="text-center"
+            style={{ fontFamily: FONT_BODY, fontSize: '14px', fontWeight: 400, lineHeight: '20px', color: '#5C5C5C' }}
+          >
+            Restaurant Marketing, Content &amp; Web Design
+          </span>
+          <span style={{ fontFamily: FONT_BODY, fontSize: '14px', fontWeight: 400, lineHeight: '20px', color: '#5C5C5C' }}>
+            2026
+          </span>
+        </a>
       </div>
     </footer>
   );
