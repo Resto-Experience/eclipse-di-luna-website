@@ -4,10 +4,26 @@ import { SectionHeadingGroup } from '@/components/sections/SectionHeadingGroup';
 import { PrivatePartyInfoCards } from '@/components/sections/PrivatePartyInfoCards';
 import { ProposalForm } from '@/components/sections/ProposalForm';
 
+const TITLE = 'Private Events & Celebrations';
+const DESCRIPTION =
+  'Host your next celebration at Eclipse di Luna. Private party spaces for birthdays, rehearsal dinners, corporate events and more.';
+const URL_PATH = '/private-party';
+
 export const metadata: Metadata = {
-  title: 'Private Party | Eclipse di Luna',
-  description:
-    'Host your private party at Eclipse di Luna. Thoughtfully crafted tapas packages, private rooms, and a personalized proposal for your event.',
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: URL_PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL_PATH,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function PrivatePartyPage() {

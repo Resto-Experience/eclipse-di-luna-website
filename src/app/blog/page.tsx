@@ -5,10 +5,26 @@ import { InnerPageHero } from '@/components/sections/InnerPageHero';
 import { Reveal } from '@/components/ui/Reveal';
 import { getAllBlogPosts } from '@/data/blog';
 
+const TITLE = 'Blog — Stories, Recipes & Highlights from Eclipse di Luna';
+const DESCRIPTION =
+  'Stories, recipes, and highlights from the Eclipse di Luna kitchens and tapas bars across Atlanta.';
+const URL_PATH = '/blog';
+
 export const metadata: Metadata = {
-  title: 'Blog | Eclipse di Luna',
-  description:
-    'Stories, recipes, and highlights from the Eclipse di Luna kitchens and tapas bars across Atlanta.',
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: URL_PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL_PATH,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function BlogPage() {

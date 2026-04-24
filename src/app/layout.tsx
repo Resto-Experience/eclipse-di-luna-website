@@ -55,10 +55,61 @@ const abhayaLibre = Abhaya_Libre({
   weight: ['400', '500', '600', '700', '800'],
 });
 
+const SITE_URL = 'https://www.eclipsediluna.com';
+
 export const metadata: Metadata = {
-  title: 'Eclipse di Luna | Restaurant & Tapas Bar',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Eclipse di Luna | Celebrating Latin & Spanish Cuisine in Atlanta',
+    template: '%s | Eclipse di Luna',
+  },
   description:
-    'Eclipse di Luna celebrates culture and good times, showcasing Latin cuisine with spectacular tapas, craft cocktails, and live entertainment across 4 Atlanta locations.',
+    'Join Eclipse di Luna for a culinary journey through Latin and Spanish culture with our vibrant tapas bar and restaurant | Atlanta',
+  keywords: ['tapas', 'Spanish restaurant', 'Latin restaurant', 'Atlanta', 'Alpharetta', 'Buckhead', 'Dunwoody', 'Beltline', 'live music', 'cocktails'],
+  authors: [{ name: 'Eclipse di Luna' }],
+  alternates: { canonical: '/' },
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    apple: '/favicon.png',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: SITE_URL,
+    siteName: 'Eclipse di Luna',
+    title: 'Eclipse di Luna | Celebrating Latin & Spanish Cuisine in Atlanta',
+    description:
+      'Join Eclipse di Luna for a culinary journey through Latin and Spanish culture with our vibrant tapas bar and restaurant | Atlanta',
+    images: [
+      {
+        url: '/images/hero/logo-white.png',
+        width: 1200,
+        height: 630,
+        alt: 'Eclipse di Luna — Restaurant & Tapas Bar',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Eclipse di Luna | Celebrating Latin & Spanish Cuisine in Atlanta',
+    description:
+      'Join Eclipse di Luna for a culinary journey through Latin and Spanish culture with our vibrant tapas bar and restaurant | Atlanta',
+    images: ['/images/hero/logo-white.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -77,6 +128,13 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${fontClasses} h-full antialiased`}>
+      <head>
+        {/* Preconnect to external CDNs used on home/blog to cut DNS+TLS handshake
+            from the critical path — IG embeds (Events modal) and Webflow CMS
+            (blog inline images) are the two external hosts we hit. */}
+        <link rel="preconnect" href="https://www.instagram.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.prod.website-files.com" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-full flex flex-col">
         <ModalProvider>
           <Navbar />

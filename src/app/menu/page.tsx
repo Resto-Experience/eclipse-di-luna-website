@@ -2,10 +2,26 @@ import type { Metadata } from 'next';
 import { InnerPageHero } from '@/components/sections/InnerPageHero';
 import { MenuGrid } from '@/components/sections/MenuGrid';
 
+const TITLE = "Menu — Explore Eclipse di Luna's Tapas, Cocktails & Wine";
+const DESCRIPTION =
+  'Browse menus for all 4 Atlanta Eclipse di Luna locations — tapas, wines, cocktails, brunch & happy hour.';
+const URL_PATH = '/menu';
+
 export const metadata: Metadata = {
-  title: 'Menu | Eclipse di Luna',
-  description:
-    'Explore our menus across all four Eclipse di Luna locations — Alpharetta, Beltline, Buckhead, and Dunwoody.',
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: URL_PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL_PATH,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function MenuPage() {

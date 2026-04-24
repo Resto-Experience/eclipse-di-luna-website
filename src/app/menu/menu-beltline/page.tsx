@@ -7,9 +7,26 @@ import menuJson from '@/data/menus/beltline.json';
 const location = getLocation('beltline');
 const menu = menuJson as LocationMenu;
 
+const TITLE = 'Beltline Tapas & Cocktails Menu';
+const DESCRIPTION =
+  "Explore Eclipse di Luna's Beltline menu featuring Spanish tapas, signature cocktails, wines, and happy hour specials.";
+const URL_PATH = '/menu/menu-beltline';
+
 export const metadata: Metadata = {
-  title: 'Beltline Menu | Eclipse di Luna',
-  description: 'Explore our full menu at Eclipse di Luna Beltline — Spanish tapas, signature cocktails, wines, beers, and happy hour.',
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: URL_PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL_PATH,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function MenuBeltlinePage() {

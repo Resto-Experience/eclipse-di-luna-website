@@ -6,10 +6,26 @@ import { LocationContactsGrid } from '@/components/sections/LocationContactsGrid
 import { TrustMetrics } from '@/components/sections/TrustMetrics';
 import { CateringForm } from '@/components/sections/CateringForm';
 
+const TITLE = 'Catering Services by Eclipse di Luna | Spanish Tapas in Atlanta';
+const DESCRIPTION =
+  "Bring the flavors of Spain to your event with Eclipse di Luna's catering services. Over 27 years of expertise in creating experiences";
+const URL_PATH = '/catering';
+
 export const metadata: Metadata = {
-  title: 'Catering | Eclipse di Luna',
-  description:
-    "From intimate gatherings to large celebrations, Eclipse di Luna catering brings Latin & Spanish flavors to your event.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: URL_PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL_PATH,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function CateringPage() {

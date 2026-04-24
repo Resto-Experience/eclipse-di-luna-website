@@ -82,7 +82,7 @@ export function LocationsSection() {
                 >
                   <Image
                     src={`/images/locations/${loc.slug}.avif`}
-                    alt={`Eclipse di Luna ${loc.slug}`}
+                    alt={`Eclipse di Luna ${loc.slug.charAt(0).toUpperCase() + loc.slug.slice(1)} restaurant interior`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 525px"

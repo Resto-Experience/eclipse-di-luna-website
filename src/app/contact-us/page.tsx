@@ -2,10 +2,26 @@ import type { Metadata } from 'next';
 import { InnerPageHero } from '@/components/sections/InnerPageHero';
 import { ContactForm } from '@/components/sections/ContactForm';
 
+const TITLE = 'Contact Eclipse di Luna - Tapas Bar & Live Music Venues in Atlanta';
+const DESCRIPTION =
+  'Reach out to Eclipse di Luna for inquiries or feedback. Choose from our Buckhead, Dunwoody, or Alpharetta locations';
+const URL_PATH = '/contact-us';
+
 export const metadata: Metadata = {
-  title: 'Contact Us | Eclipse di Luna',
-  description:
-    "Get in touch with Eclipse di Luna. Let's stay connected — reach out for questions, feedback, or reservations.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: URL_PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL_PATH,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function ContactUsPage() {

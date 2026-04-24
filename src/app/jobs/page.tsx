@@ -2,10 +2,26 @@ import type { Metadata } from 'next';
 import { InnerPageHero } from '@/components/sections/InnerPageHero';
 import { JobsForm } from '@/components/sections/JobsForm';
 
+const TITLE = 'Join Our Team - Careers at Eclipse di Luna';
+const DESCRIPTION =
+  'Eclipse di Luna is hiring! Apply now to become a part of our dynamic team at our Buckhead, Dunwoody, or Alpharetta locations';
+const URL_PATH = '/jobs';
+
 export const metadata: Metadata = {
-  title: 'Jobs | Eclipse di Luna',
-  description:
-    'We are hiring! Apply to join the Eclipse di Luna team across our four Atlanta locations.',
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: URL_PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL_PATH,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function JobsPage() {
