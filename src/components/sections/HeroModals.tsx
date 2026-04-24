@@ -30,9 +30,10 @@ type ModalShellProps = {
   description: string;
   children: ReactNode;
   maxWidth?: string;
+  textAlign?: 'center' | 'left';
 };
 
-function ModalShell({ open, onClose, title, description, children, maxWidth = '940px' }: ModalShellProps) {
+function ModalShell({ open, onClose, title, description, children, maxWidth = '940px', textAlign = 'left' }: ModalShellProps) {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -79,12 +80,12 @@ function ModalShell({ open, onClose, title, description, children, maxWidth = '9
           className="overflow-y-auto"
           style={{ padding: 'clamp(24px, 4vw, 40px)', maxHeight: '90vh' }}
         >
-          <div className="text-center" style={{ marginBottom: '24px' }}>
+          <div style={{ marginBottom: '24px', textAlign }}>
             <h2
               style={{
                 fontFamily: FONT_HEADING,
-                fontSize: 'clamp(28px, 3.5vw, 40px)',
-                lineHeight: '44px',
+                fontSize: 'clamp(22px, 3vw, 42px)',
+                lineHeight: 1,
                 fontWeight: 400,
                 color: '#3C1816',
                 margin: '0 0 10px',
@@ -95,8 +96,8 @@ function ModalShell({ open, onClose, title, description, children, maxWidth = '9
             <p
               style={{
                 fontFamily: FONT_BODY,
-                fontSize: 'clamp(16px, 1.6vw, 18px)',
-                lineHeight: '26px',
+                fontSize: 'clamp(16px, 1.3vw, 18px)',
+                lineHeight: 'clamp(16px, 1.4vw, 20px)',
                 fontWeight: 400,
                 color: '#333333',
                 margin: 0,
@@ -208,10 +209,14 @@ export function ReserveTableModal({ open, onClose }: { open: boolean; onClose: (
       open={open}
       onClose={onClose}
       title="Reserve a Table"
-      description="Please select the location where you'd like to reserve a table."
-      maxWidth="640px"
+      description="Please select the location where you'd like to purchase Reserve a table."
+      maxWidth="740px"
+      textAlign="left"
     >
-      <div ref={ref} style={{ minHeight: '420px' }} />
+      <div
+        ref={ref}
+        style={{ minHeight: '420px', display: 'flex', justifyContent: 'center' }}
+      />
     </ModalShell>
   );
 }
