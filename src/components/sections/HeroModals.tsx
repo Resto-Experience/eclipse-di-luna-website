@@ -89,6 +89,8 @@ function ModalShell({ open, onClose, title, description, children, maxWidth = '9
                 fontWeight: 400,
                 color: '#3C1816',
                 margin: '0 0 10px',
+                paddingBottom: '10px',
+                borderBottom: '1px solid #000',
               }}
             >
               {title}
@@ -101,6 +103,7 @@ function ModalShell({ open, onClose, title, description, children, maxWidth = '9
                 fontWeight: 400,
                 color: '#333333',
                 margin: 0,
+                paddingTop: '10px',
               }}
             >
               {description}
@@ -115,21 +118,24 @@ function ModalShell({ open, onClose, title, description, children, maxWidth = '9
 
 function LocationGrid({ links, cta }: { links: typeof ORDER_LINKS; cta: string }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: '16px' }}>
+    <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: '20px', marginTop: '20px' }}>
       {links.map((loc) => (
         <div
           key={loc.name}
-          className="flex flex-col items-center text-center"
-          style={{ padding: '20px', border: '1px solid #E3E1E0', borderRadius: '8px', gap: '12px' }}
+          style={{
+            backgroundColor: '#FCF0E1',
+            borderRadius: '8px',
+            padding: '24px',
+          }}
         >
           <h3
             style={{
               fontFamily: FONT_HEADING,
-              fontSize: '24px',
-              lineHeight: '30px',
+              fontSize: 'clamp(28px, 2.7vw, 36px)',
+              lineHeight: 1,
               fontWeight: 400,
-              color: '#3C1816',
-              margin: 0,
+              color: '#903934',
+              margin: '0 0 12px',
             }}
           >
             {loc.name}
@@ -138,20 +144,21 @@ function LocationGrid({ links, cta }: { links: typeof ORDER_LINKS; cta: string }
             href={loc.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center transition-colors duration-200"
+            className="flex items-center justify-center transition-colors duration-200"
             style={{
-              height: '42px',
-              padding: '10px 24px',
+              width: '100%',
+              height: '52px',
               backgroundColor: '#780C06',
               color: '#F4CE9F',
               border: '1px solid #F4CE9F',
               borderRadius: '500px',
               fontFamily: FONT_BODY,
-              fontSize: '14px',
-              fontWeight: 600,
-              lineHeight: '16px',
+              fontSize: '16px',
+              fontWeight: 400,
+              lineHeight: '20px',
               textTransform: 'uppercase',
               textDecoration: 'none',
+              letterSpacing: '0.02em',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#000000')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#780C06')}
@@ -171,6 +178,7 @@ export function OrderOnlineModal({ open, onClose }: { open: boolean; onClose: ()
       onClose={onClose}
       title="Order Online"
       description="Please select the location where you'd like to purchase the Order."
+      maxWidth="740px"
     >
       <LocationGrid links={ORDER_LINKS} cta="Order Here" />
     </ModalShell>
@@ -184,6 +192,7 @@ export function GiftCardModal({ open, onClose }: { open: boolean; onClose: () =>
       onClose={onClose}
       title="A Gift Everyone Will Enjoy"
       description="Please select the location where you'd like to purchase the gift card."
+      maxWidth="740px"
     >
       <LocationGrid links={GIFTCARD_LINKS} cta="Buy Here" />
     </ModalShell>
