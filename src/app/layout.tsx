@@ -70,10 +70,9 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.png', type: 'image/png', sizes: '32x32' },
     ],
-    apple: '/favicon.png',
+    apple: { url: '/apple-touch-icon.png', sizes: '256x256' },
   },
   openGraph: {
     type: 'website',

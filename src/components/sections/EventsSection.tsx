@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Reveal } from '@/components/ui/Reveal';
+import { useModal } from '@/components/providers/ModalProvider';
 
 const BANNERS = [
   {
@@ -47,6 +48,7 @@ const CTA_CARDS = [
     icon: '/images/icons/calendar-event.svg',
     bg: '/images/events/cta-book-overlay.avif',
     kind: 'decorative' as const,
+    action: 'reserve' as const,
   },
   {
     title: 'We cater',
@@ -109,8 +111,10 @@ function BannerCard({ banner, onOpen }: { banner: (typeof BANNERS)[number]; onOp
   );
 }
 
-function CtaCard({ card }: { card: (typeof CTA_CARDS)[number] }) {
+function CtaCard({ card, onAction }: { card: (typeof CTA_CARDS)[number]; onAction?: () => void }) {
   const isDecorative = card.kind === 'decorative';
+  const ctaClass =
+    'text-cta-pill relative z-10 flex items-center justify-center gap-2 h-[44px] w-full rounded-full cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200';
   return (
     <div
       className="relative overflow-hidden flex flex-col items-center px-6 py-6 aspect-[3/4.5]"
@@ -127,13 +131,17 @@ function CtaCard({ card }: { card: (typeof CTA_CARDS)[number] }) {
         {card.title} <br />{card.titleLine2}
       </h3>
       <div className="flex-1" />
-      <a
-        href={card.href}
-        className="text-cta-pill relative z-10 flex items-center justify-center gap-2 h-[44px] w-full rounded-full cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
-      >
-        <Image src={card.icon} alt="" width={20} height={20} className="shrink-0" />
-        {card.cta}
-      </a>
+      {onAction ? (
+        <button type="button" onClick={onAction} className={ctaClass}>
+          <Image src={card.icon} alt="" width={20} height={20} className="shrink-0" />
+          {card.cta}
+        </button>
+      ) : (
+        <a href={card.href} className={ctaClass}>
+          <Image src={card.icon} alt="" width={20} height={20} className="shrink-0" />
+          {card.cta}
+        </a>
+      )}
     </div>
   );
 }
@@ -221,6 +229,9 @@ function MobileCarousel<T>({ items, render }: { items: T[]; render: (item: T, i:
 
 export function EventsSection() {
   const [openPost, setOpenPost] = useState<string | null>(null);
+  const { openModal } = useModal();
+  const ctaAction = (card: (typeof CTA_CARDS)[number]) =>
+    'action' in card && card.action === 'reserve' ? () => openModal('reserve') : undefined;
   return (
     <section
       className="relative py-[80px]"
@@ -274,13 +285,13 @@ export function EventsSection() {
         <div className="lg:hidden -mx-4">
           <MobileCarousel
             items={CTA_CARDS}
-            render={(card) => <CtaCard card={card} />}
+            render={(card) => <CtaCard card={card} onAction={ctaAction(card)} />}
           />
         </div>
         <div className="hidden lg:grid grid-cols-3 gap-0 max-w-[1040px] mx-auto">
           {CTA_CARDS.map((card, i) => (
             <Reveal key={i} variant="fade-up" duration={600} delay={Math.min(i, 4) * 100}>
-              <CtaCard card={card} />
+              <CtaCard card={card} onAction={ctaAction(card)} />
             </Reveal>
           ))}
         </div>

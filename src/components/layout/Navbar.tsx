@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS, SITE_INSTAGRAM } from '@/data/site';
+import { useModal } from '@/components/providers/ModalProvider';
 
 const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
 const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
@@ -26,6 +27,7 @@ function isActive(pathname: string, href: string, subHrefs?: string[]): boolean 
 }
 
 export function Navbar() {
+  const { openModal } = useModal();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -208,6 +210,7 @@ export function Navbar() {
           <div className="flex items-center gap-2 lg:gap-3">
             <button
               type="button"
+              onClick={() => openModal('reserve')}
               className="flex items-center justify-center h-[36px] lg:h-[42px] px-4 lg:px-5 rounded-full uppercase font-semibold text-sm lg:text-base cursor-pointer bg-[#810D06] hover:bg-[#030E17] text-[#F6D8B2] hover:text-[#F2C873] border border-[#F6D8B2] hover:border-[#F2C873] transition-colors duration-200"
               style={{
                 fontFamily: FONT_BUTTON,

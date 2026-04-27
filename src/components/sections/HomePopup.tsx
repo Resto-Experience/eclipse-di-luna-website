@@ -3,16 +3,12 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-const STORAGE_KEY = 'edl-home-popup-dismissed';
 const LINK_HREF = '/location-dunwoody/#Entertainment-Dunwoody';
 
 export function HomePopup() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem(STORAGE_KEY) === '1') return;
-    } catch (_) {}
     const t = setTimeout(() => setOpen(true), 1200);
     return () => clearTimeout(t);
   }, []);
@@ -28,10 +24,7 @@ export function HomePopup() {
     };
   }, [open]);
 
-  const close = () => {
-    setOpen(false);
-    try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch (_) {}
-  };
+  const close = () => setOpen(false);
 
   if (!open) return null;
 

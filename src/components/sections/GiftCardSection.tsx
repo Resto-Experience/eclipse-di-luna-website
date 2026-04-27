@@ -1,11 +1,15 @@
+'use client';
+
 import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
+import { useModal } from '@/components/providers/ModalProvider';
 
 const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
 const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
 const FONT_HEADING = '"Swarsh Daisy", var(--font-display), Georgia, serif';
 
 export function GiftCardSection() {
+  const { openModal } = useModal();
   return (
     <section
       className="relative py-[72px]"
@@ -53,12 +57,13 @@ export function GiftCardSection() {
           </p>
 
           {/* CTA — black bg, gold border. Hover: black → red. Uses .text-cta-pill (Nunito 600 uppercase) per live. */}
-          <a
-            href="#"
+          <button
+            type="button"
+            onClick={() => openModal('gift')}
             className="text-cta-pill inline-flex items-center justify-center h-[46px] px-5 rounded-full cursor-pointer self-start bg-[#000000] hover:bg-[#780C06] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
           >
             Buy a Gift Card
-          </a>
+          </button>
         </div>
         </Reveal>
       </div>

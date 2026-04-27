@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import { getAllLocations } from '@/data/locations';
 import { Reveal } from '@/components/ui/Reveal';
-import { OrderOnlineModal, ReserveTableModal } from '@/components/sections/HeroModals';
+import { useModal } from '@/components/providers/ModalProvider';
 
 const GOOGLE_MAPS_LINKS: Record<string, string> = {
   alpharetta: 'https://maps.app.goo.gl/L8XXEnFyiuuPY8zq7',
@@ -14,8 +13,7 @@ const GOOGLE_MAPS_LINKS: Record<string, string> = {
 };
 
 export function Hero() {
-  const [modal, setModal] = useState<'reserve' | 'order' | null>(null);
-  const close = () => setModal(null);
+  const { openModal } = useModal();
 
   return (
     <section className="relative h-dvh min-h-[700px] flex flex-col items-center justify-center overflow-hidden">
@@ -79,7 +77,7 @@ export function Hero() {
           {/* Reserve A Table — burgundy bg, hovers to black */}
           <button
             type="button"
-            onClick={() => setModal('reserve')}
+            onClick={() => openModal('reserve')}
             className="w-full sm:w-auto flex items-center justify-center h-[46px] px-5 rounded-full uppercase font-semibold text-base cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
             style={{
               fontFamily: 'var(--font-button), Arial, sans-serif',
@@ -98,7 +96,7 @@ export function Hero() {
           {/* Order Online — BLACK bg, hovers to burgundy */}
           <button
             type="button"
-            onClick={() => setModal('order')}
+            onClick={() => openModal('order')}
             className="w-full sm:w-auto flex items-center justify-center h-[46px] px-5 rounded-full uppercase font-semibold text-base cursor-pointer bg-[#000000] hover:bg-[#780C06] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
             style={{
               fontFamily: 'var(--font-button), Arial, sans-serif',
@@ -170,9 +168,6 @@ export function Hero() {
           </span>
         </a>
       </Reveal>
-
-      <ReserveTableModal open={modal === 'reserve'} onClose={close} />
-      <OrderOnlineModal open={modal === 'order'} onClose={close} />
     </section>
   );
 }

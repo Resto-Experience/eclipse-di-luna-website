@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import { getAllLocations } from '@/data/locations';
 import { Reveal } from '@/components/ui/Reveal';
+import { useModal } from '@/components/providers/ModalProvider';
 
 const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
 const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
@@ -22,6 +25,7 @@ const LOCATION_ADDRESSES: Record<string, { text: string; href: string }> = {
 
 export function LocationsSection() {
   const locations = getAllLocations();
+  const { openModal } = useModal();
 
   return (
     <section
@@ -161,13 +165,14 @@ export function LocationsSection() {
 
                   {/* CTAs — Reserve red→black, See More dark→red. */}
                   <div className="flex gap-3 mt-2">
-                    <a
-                      href="#"
+                    <button
+                      type="button"
+                      onClick={() => openModal('reserve')}
                       className="text-cta-pill flex items-center justify-center h-[42px] lg:h-[46px] px-4 lg:px-5 rounded-full whitespace-nowrap cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
                     >
                       <Image src="/images/icons/circle-dot-filled.svg" alt="" width={18} height={18} className="mr-2" />
                       Reserve A Table
-                    </a>
+                    </button>
                     <a
                       href={`/location-${loc.slug}`}
                       className="text-cta-pill flex items-center justify-center h-[42px] lg:h-[46px] px-4 lg:px-5 rounded-full whitespace-nowrap cursor-pointer bg-[#120601] hover:bg-[#780C06] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"

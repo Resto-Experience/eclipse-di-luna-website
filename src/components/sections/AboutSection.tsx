@@ -5,6 +5,7 @@ import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Reveal } from '@/components/ui/Reveal';
+import { useModal } from '@/components/providers/ModalProvider';
 
 const FONT_BODY = 'var(--font-body), "Nunito", sans-serif';
 const FONT_BUTTON = 'var(--font-button), Arial, sans-serif';
@@ -18,6 +19,7 @@ const SLIDES = [
 ];
 
 export function AboutSection() {
+  const { openModal } = useModal();
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: 'start' },
     [Autoplay({ delay: 4000, stopOnInteraction: false })]
@@ -75,8 +77,9 @@ export function AboutSection() {
           {/* CTAs — mobile: 1-col grid, both equal to Reserve A Table width, left-aligned.
               Desktop (lg+): side-by-side content-width. */}
           <div className="w-fit grid grid-cols-1 gap-3 mt-2 lg:flex lg:flex-row">
-            <a
-              href="#"
+            <button
+              type="button"
+              onClick={() => openModal('reserve')}
               className="w-full lg:w-auto flex items-center justify-center h-[48px] px-6 rounded-full uppercase font-semibold text-base whitespace-nowrap cursor-pointer bg-[#780C06] hover:bg-[#000000] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"
               style={{
                 fontFamily: FONT_BUTTON,
@@ -91,7 +94,7 @@ export function AboutSection() {
                 className="mr-2"
               />
               Reserve A Table
-            </a>
+            </button>
             <a
               href="/menu"
               className="w-full lg:w-auto flex items-center justify-center h-[48px] px-6 rounded-full uppercase font-semibold text-base whitespace-nowrap cursor-pointer bg-[#000000] hover:bg-[#780C06] text-[#F4CE9F] border border-[#F4CE9F] transition-colors duration-200"

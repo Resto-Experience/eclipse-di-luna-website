@@ -180,7 +180,7 @@ export function OrderOnlineModal({ open, onClose }: { open: boolean; onClose: ()
       description="Please select the location where you'd like to purchase the Order."
       maxWidth="740px"
     >
-      <LocationGrid links={ORDER_LINKS} cta="Order Here" />
+      <LocationGrid links={ORDER_LINKS} cta="ORDER HERE" />
     </ModalShell>
   );
 }
@@ -194,7 +194,7 @@ export function GiftCardModal({ open, onClose }: { open: boolean; onClose: () =>
       description="Please select the location where you'd like to purchase the gift card."
       maxWidth="740px"
     >
-      <LocationGrid links={GIFTCARD_LINKS} cta="Buy Here" />
+      <LocationGrid links={GIFTCARD_LINKS} cta="BUY HERE" />
     </ModalShell>
   );
 }
