@@ -13,7 +13,7 @@ export const buckhead: Location = {
   contact: {
     phone: '(470) 664-1188',
     email: 'info@eclipsediluna.com',
-    cateringEmail: 'catering@eclipsediluna.com',
+    cateringEmail: 'buckhead@eclipsediluna.com',
     cateringPhone: '(470) 664-1188',
     address: '764 Miami Cir NE',
     city: 'Atlanta',
@@ -23,7 +23,7 @@ export const buckhead: Location = {
   links: {
     orderOnline: 'https://order.toasttab.com/online/eclipse-di-luna-buckhead-764-miami-circle',
     reservations: 'https://www.opentable.com/r/eclipse-di-luna-buckhead-atlanta',
-    delivery: '',
+    delivery: 'https://www.ubereats.com/store/eclipse-di-luna-lindbergh/NYIjrDnqQtagZMcVS8yhIQ',
     giftCard: 'https://order.toasttab.com/egiftcards/eclipse-di-luna-buckhead-764-miami-circle',
     menu: '/menu/menu-buckhead',
     googleMaps: 'https://maps.app.goo.gl/j1tcm5X6GpYYMYSx9',

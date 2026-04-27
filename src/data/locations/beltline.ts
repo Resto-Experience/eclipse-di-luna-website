@@ -13,7 +13,7 @@ export const beltline: Location = {
   contact: {
     phone: '(463) 252-3572',
     email: 'beltline@eclipsediluna.com',
-    cateringEmail: 'catering@eclipsediluna.com',
+    cateringEmail: 'beltline@eclipsediluna.com',
     cateringPhone: '(463) 252-3572',
     address: '661 Auburn AVE NE STE 220',
     city: 'Atlanta',
@@ -23,7 +23,7 @@ export const beltline: Location = {
   links: {
     orderOnline: 'https://www.toasttab.com/local/order/eclipse-di-luna-beltline',
     reservations: 'https://www.opentable.com/r/eclipse-di-luna-krog-atlanta',
-    delivery: '',
+    delivery: 'https://www.ubereats.com/store/eclipse-di-luna-beltline/MkTu5FT1UD-OEiSPK7q2kw',
     giftCard: 'https://order.toasttab.com/egiftcards/eclipse-di-luna-beltline',
     menu: '/menu/menu-beltline',
     googleMaps: 'https://maps.app.goo.gl/3svo5EHB6MChbmEc6',

@@ -121,12 +121,17 @@ export function LocationsSection() {
 
                   {/* Link tabs — flat cream rectangles per live (NOT rounded pills). bg #F8DEBF, 37px tall, 10px horizontal padding. */}
                   <div className="flex flex-wrap gap-[5px] mt-1">
-                    {[
-                      { label: 'Order Online', href: `/location-${loc.slug}/#Order` },
-                      { label: 'Entertainment', href: `/location-${loc.slug}/#Entertainment` },
-                      { label: 'Deals', href: `/location-${loc.slug}/#Deals` },
-                      { label: 'Menu', href: `/menu/menu-${loc.slug}` },
-                    ].map((link) => (
+                    {(() => {
+                      // Live anchor format: alpharetta uses bare #Order/#Entertainment/#Deals; the other 3 suffix the capitalized slug.
+                      const cap = loc.slug.charAt(0).toUpperCase() + loc.slug.slice(1);
+                      const suffix = loc.slug === 'alpharetta' ? '' : `-${cap}`;
+                      return [
+                        { label: 'Order Online', href: `/location-${loc.slug}/#Order${suffix}` },
+                        { label: 'Entertainment', href: `/location-${loc.slug}/#Entertainment${suffix}` },
+                        { label: 'Deals', href: `/location-${loc.slug}/#Deals${suffix}` },
+                        { label: 'Menu', href: `/menu/menu-${loc.slug}` },
+                      ];
+                    })().map((link) => (
                       <a
                         key={link.label}
                         href={link.href}

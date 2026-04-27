@@ -13,7 +13,7 @@ export const dunwoody: Location = {
   contact: {
     phone: '(470) 712-5680',
     email: 'info@eclipsediluna.net',
-    cateringEmail: 'catering@eclipsediluna.net',
+    cateringEmail: 'dunwoody@eclipsediluna.com',
     cateringPhone: '(470) 712-5680',
     address: '4505 Ashford Dunwoody Road',
     city: 'Dunwoody',
@@ -23,7 +23,7 @@ export const dunwoody: Location = {
   links: {
     orderOnline: 'https://order.toasttab.com/online/eclipse-di-luna-dunwoody-4505-ashford-dunwoody-road',
     reservations: 'https://www.opentable.com/eclipse-di-luna-dunwoody',
-    delivery: '',
+    delivery: 'https://www.ubereats.com/store/eclipse-di-luna-sandy-springs/_5iQjJe9Td-TG0eU6-3d_w',
     giftCard: 'https://order.toasttab.com/egiftcards/eclipse-di-luna-dunwoody-4505-ashford-dunwoody-road',
     menu: '/menu/menu-dunwoody',
     googleMaps: 'https://maps.app.goo.gl/SPGT2XBhSMqc7sFU9',

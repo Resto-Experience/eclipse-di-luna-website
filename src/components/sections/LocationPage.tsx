@@ -930,7 +930,7 @@ function DealsPane({ location }: { location: Location }) {
     <Reveal variant="fade-up" duration={600} onMount>
     <div className="flex justify-center w-full">
       <a
-        href={`${location.links.menu}#happy-hour`}
+        href={`${location.links.menu}#section-happy-hour`}
         className="hidden lg:block w-full"
         style={{
           maxWidth: '1180px',
@@ -943,7 +943,7 @@ function DealsPane({ location }: { location: Location }) {
         aria-label="View happy hour deals"
       />
       <a
-        href={`${location.links.menu}#happy-hour`}
+        href={`${location.links.menu}#section-happy-hour`}
         className="lg:hidden w-full"
         style={{
           maxWidth: '1180px',
