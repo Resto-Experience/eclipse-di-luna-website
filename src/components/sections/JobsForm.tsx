@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
 import { getAllLocations } from '@/data/locations';
-import { Field, SelectField, TextareaField, SubmitButton, FIELD_LABEL_STYLE, FIELD_INPUT_STYLE } from './FormFields';
+import { Field, SelectField, TextareaField, SubmitButton, Honeypot, FormError, FIELD_LABEL_STYLE, FIELD_INPUT_STYLE } from './FormFields';
 
 const POSITIONS = [
   'Assistant Manager', 'General Manager', 'Events Manager', 'Executive Chef',
@@ -15,14 +15,35 @@ const POSITIONS = [
 
 export function JobsForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [agreed, setAgreed] = useState(false);
   const locations = getAllLocations();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!agreed) return;
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setError(null);
+    setLoading(true);
+    const fd = new FormData(e.currentTarget);
+    try {
+      const res = await fetch('/api/jobs', {
+        method: 'POST',
+        body: fd,
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || 'Something went wrong');
+      }
+      e.currentTarget.reset();
+      setAgreed(false);
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 4000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -71,7 +92,8 @@ export function JobsForm() {
         className="mx-auto rounded-[8px] bg-white"
         style={{ maxWidth: '940px', padding: '24px' }}
       >
-        <form onSubmit={onSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <form onSubmit={onSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4" encType="multipart/form-data">
+        <Honeypot />
         <Field label="First Name" name="firstName" required placeholder="First name" />
         <Field label="Last Name" name="lastName" required placeholder="Last name" />
         <Field label="Email" name="email" type="email" required placeholder="Example@mail.com" />
@@ -119,8 +141,9 @@ export function JobsForm() {
           </span>
         </label>
 
+        <FormError message={error} />
         <div className="sm:col-span-2 flex justify-center mt-2">
-          <SubmitButton submitted={submitted} />
+          <SubmitButton submitted={submitted} loading={loading} />
         </div>
       </form>
       </div>

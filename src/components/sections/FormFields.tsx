@@ -127,11 +127,21 @@ export function TextareaField({
   );
 }
 
-export function SubmitButton({ label = 'Send', submitted }: { label?: string; submitted?: boolean }) {
+export function SubmitButton({
+  label = 'Send',
+  submitted,
+  loading,
+}: {
+  label?: string;
+  submitted?: boolean;
+  loading?: boolean;
+}) {
+  const text = loading ? 'Sending...' : submitted ? 'Sent!' : label;
   return (
     <button
       type="submit"
-      className="h-[52px] px-8 rounded-full uppercase cursor-pointer transition-colors duration-200"
+      disabled={loading || submitted}
+      className="h-[52px] px-8 rounded-full uppercase cursor-pointer transition-colors duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
       style={{
         fontFamily: 'var(--font-button)',
         fontSize: '16px',
@@ -143,7 +153,40 @@ export function SubmitButton({ label = 'Send', submitted }: { label?: string; su
         minWidth: '269px',
       }}
     >
-      {submitted ? 'Sent!' : label}
+      {text}
     </button>
+  );
+}
+
+// Hidden field bots fill — keeps spam down without a captcha. Render once per form.
+export function Honeypot() {
+  return (
+    <input
+      type="text"
+      name="website"
+      tabIndex={-1}
+      autoComplete="off"
+      aria-hidden
+      style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+    />
+  );
+}
+
+export function FormError({ message }: { message: string | null }) {
+  if (!message) return null;
+  return (
+    <div
+      role="alert"
+      className="sm:col-span-2 rounded-[8px] px-4 py-3"
+      style={{
+        backgroundColor: '#F8E8E6',
+        border: '1px solid #E8B5B1',
+        color: '#780C06',
+        fontFamily: 'var(--font-body)',
+        fontSize: '14px',
+      }}
+    >
+      {message}
+    </div>
   );
 }

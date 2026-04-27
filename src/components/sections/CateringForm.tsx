@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Reveal } from '@/components/ui/Reveal';
 import { getAllLocations } from '@/data/locations';
-import { Field, SelectField, TextareaField, SubmitButton } from './FormFields';
+import { Field, SelectField, TextareaField, SubmitButton, Honeypot, FormError } from './FormFields';
 
 const EVENT_TYPES = [
   'Birthday', 'Anniversary', 'Wedding / Rehearsal Dinner', 'Corporate Event',
@@ -13,11 +13,33 @@ const EVENT_TYPES = [
 
 export function CateringForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const locations = getAllLocations();
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setError(null);
+    setLoading(true);
+    const fd = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(fd.entries());
+    try {
+      const res = await fetch('/api/catering', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || 'Something went wrong');
+      }
+      e.currentTarget.reset();
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 4000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,6 +85,7 @@ export function CateringForm() {
 
       <Reveal variant="fade-up" duration={700} delay={200}>
       <form onSubmit={onSubmit} className="px-7 py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Honeypot />
         <Field label="First Name" name="firstName" required placeholder="First name" />
         <Field label="Last Name" name="lastName" required placeholder="Last name" />
         <Field label="Email" name="email" type="email" required placeholder="Example@mail.com" />
@@ -78,8 +101,9 @@ export function CateringForm() {
           full
         />
         <TextareaField label="Additional Info" name="message" required placeholder="Your note here" full />
+        <FormError message={error} />
         <div className="sm:col-span-2 flex justify-center mt-2">
-          <SubmitButton submitted={submitted} />
+          <SubmitButton submitted={submitted} loading={loading} />
         </div>
       </form>
       </Reveal>
