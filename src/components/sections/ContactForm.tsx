@@ -25,7 +25,8 @@ export function ContactForm() {
       });
       if (!res.ok) {
         const data = await res.json().catch(() => null);
-        throw new Error(data?.error || 'Something went wrong');
+        const fields = data?.errors?.map((e: { field: string; message: string }) => `${e.field}: ${e.message}`).join(' · ');
+        throw new Error(fields || data?.error || 'Something went wrong');
       }
       e.currentTarget.reset();
       setSubmitted(true);
