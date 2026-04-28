@@ -214,3 +214,19 @@ figcaption {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Hide scrollbars site-wide while preserving scroll behavior. */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* Chrome/Safari/Edge */
+}
+* {
+  scrollbar-width: none;
+}
