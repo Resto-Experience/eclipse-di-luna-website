@@ -13,6 +13,9 @@ export interface MenuItem {
   tags?: MenuTag[];
   // Non-dietary classification rendered as an italic line below description (e.g. "White Wine", "Red Wine").
   subtitle?: string;
+  // Add-on / optional note rendered as a separate line below description (e.g. "Optional: Creamy",
+  // "Add Squid ink to any Paella 5", "+ Manchego 2 | Serrano 3 | Chorizo 3", "FLAVORS $2: ...").
+  notes?: string;
 }
 
 export interface MenuSection {
