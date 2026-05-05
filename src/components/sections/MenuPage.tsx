@@ -688,6 +688,22 @@ function ItemCard({ item, tabId }: { item: MenuItem; tabId: string }) {
 
       {item.description && <ItemDescription description={item.description} />}
 
+      {item.notes && (
+        <p
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '14px',
+            lineHeight: '18px',
+            fontWeight: 400,
+            color: '#4A2617',
+            textAlign: 'center',
+            margin: '6px 0 0',
+          }}
+        >
+          {item.notes}
+        </p>
+      )}
+
       {item.subtitle && (
         <p
           style={{
