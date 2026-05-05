@@ -54,6 +54,13 @@ function fmtNumber(n: number): string {
   return Number.isInteger(n) ? String(n) : String(n);
 }
 
+// Variant names that read as "{name} {price}" rather than "{price} {name}" on the menu.
+// Glass/serving-size abbreviations come before the price; container-noun plurals
+// (Pitcher, Carafes) come after and fall through to the default.
+const NAME_FIRST_VARIANTS: ReadonlySet<string> = new Set([
+  'Single', 'Familia', 'Btl', 'btl', 'gls', 'Glass', 'Split', 'Half Btl', 'Bottle',
+]);
+
 // Reconstruct the original price string from the DB columns. Format choices:
 // - notes (e.g. "Market Price") wins as a non-numeric override
 // - price_variants with ≥1 entry → "{price} {name} | {price} {name}"
@@ -76,7 +83,11 @@ function buildPriceString(row: {
         const p = typeof v.price === 'string' ? Number(v.price) : v.price;
         if (p == null || Number.isNaN(p)) return null;
         const name = (v.name ?? '').trim();
-        return name ? `${fmtNumber(p)} ${name}` : fmtNumber(p);
+        if (!name) return fmtNumber(p);
+        // Name-first formatting for serving-size labels that read more naturally before
+        // the price (e.g. "Single 22 | Familia 40", "Btl 46", "9 gls" stays as "gls 9").
+        // Default to price-first ("38 Pitcher") for everything else.
+        return NAME_FIRST_VARIANTS.has(name) ? `${name} ${fmtNumber(p)}` : `${fmtNumber(p)} ${name}`;
       })
       .filter((s): s is string => !!s);
     if (parts.length) return parts.join(' | ');
