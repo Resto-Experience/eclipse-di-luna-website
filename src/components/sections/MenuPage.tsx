@@ -301,7 +301,7 @@ function HeroButton({
 }
 
 // Brunch and Happy Hour are reachable only via hero anchor buttons, never from the sidebar.
-const NAV_TAB_IDS = new Set(['cocktails', 'tapas', 'entrees', 'dessert', 'wine', 'beer', 'aprilcocktails']);
+const NAV_TAB_IDS = new Set(['cocktails', 'tapas', 'entrees', 'dessert', 'wine', 'beer', 'maycocktails']);
 
 function MenuContent({ menu }: { menu: LocationMenu }) {
   const navTabs = menu.tabs.filter((t) => NAV_TAB_IDS.has(t.id));
@@ -550,7 +550,7 @@ function getCardMinHeight(tabId: string, hasImage: boolean): string {
     return 'auto';
   }
   switch (tabId) {
-    case 'aprilcocktails':
+    case 'maycocktails':
       return '500px';
     case 'cocktails':
       return '477px';
@@ -561,6 +561,71 @@ function getCardMinHeight(tabId: string, hasImage: boolean): string {
     default:
       return '508px';
   }
+}
+
+// When every line of a description matches `BrandName(details)` (used by aggregate
+// list items like Happy Hour White/Red Wines), render each entry as a styled block:
+// the brand name in bold above the parenthesized details. Otherwise render plain.
+const BRAND_PAREN_RE = /^(.+?)\((.+)\)\s*$/;
+
+function ItemDescription({ description }: { description: string }) {
+  const lines = description.split('\n').map((l) => l.trim()).filter(Boolean);
+  const allMatch = lines.length >= 2 && lines.every((l) => BRAND_PAREN_RE.test(l));
+
+  if (allMatch) {
+    return (
+      <div className="flex flex-col" style={{ marginTop: '8px', gap: '12px' }}>
+        {lines.map((line, i) => {
+          const m = line.match(BRAND_PAREN_RE)!;
+          return (
+            <div key={i} className="flex flex-col" style={{ gap: '4px' }}>
+              <div
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '16px',
+                  lineHeight: '20px',
+                  fontWeight: 700,
+                  color: '#201814',
+                  textAlign: 'center',
+                }}
+              >
+                {m[1].trim()}
+              </div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  lineHeight: '18px',
+                  fontWeight: 400,
+                  color: '#4A2617',
+                  textAlign: 'center',
+                }}
+              >
+                ({m[2].trim()})
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  return (
+    <p
+      style={{
+        fontFamily: 'var(--font-body)',
+        fontSize: '14px',
+        lineHeight: description.includes('\n') ? '20px' : '15px',
+        fontWeight: 400,
+        color: '#4A2617',
+        textAlign: 'center',
+        whiteSpace: 'pre-line',
+        margin: '8px 0 0',
+      }}
+    >
+      {description}
+    </p>
+  );
 }
 
 function ItemCard({ item, tabId }: { item: MenuItem; tabId: string }) {
@@ -621,19 +686,22 @@ function ItemCard({ item, tabId }: { item: MenuItem; tabId: string }) {
         {item.name}
       </h3>
 
-      {item.description && (
+      {item.description && <ItemDescription description={item.description} />}
+
+      {item.subtitle && (
         <p
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: '14px',
-            lineHeight: '15px',
+            lineHeight: '20px',
             fontWeight: 400,
+            fontStyle: 'italic',
             color: '#4A2617',
             textAlign: 'center',
-            margin: '8px 0 0',
+            margin: '6px 0 0',
           }}
         >
-          {item.description}
+          {item.subtitle}
         </p>
       )}
 

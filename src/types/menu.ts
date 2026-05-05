@@ -11,6 +11,8 @@ export interface MenuItem {
   price?: string; // string, not number — supports "11", "20 Carafes | 38 Pitcher", "9 gls | 36 btl"
   image?: string;
   tags?: MenuTag[];
+  // Non-dietary classification rendered as an italic line below description (e.g. "White Wine", "Red Wine").
+  subtitle?: string;
 }
 
 export interface MenuSection {

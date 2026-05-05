@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { MenuPage } from '@/components/sections/MenuPage';
 import { getLocation } from '@/data/locations';
-import type { LocationMenu } from '@/types/menu';
-import menuJson from '@/data/menus/alpharetta.json';
+import { getLocationMenu } from '@/lib/menu-db';
 
 const location = getLocation('alpharetta');
-const menu = menuJson as LocationMenu;
+
+export const dynamic = 'force-dynamic';
 
 const TITLE = 'Alpharetta Tapas & Cocktails Menu';
 const DESCRIPTION =
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function MenuAlpharettaPage() {
+export default async function MenuAlpharettaPage() {
+  const menu = await getLocationMenu('alpharetta');
   return <MenuPage location={location} menu={menu} />;
 }
