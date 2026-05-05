@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.prod.website-files.com' },
+      { protocol: 'https', hostname: 'kqibgbvdgxrjhdyfoxvm.supabase.co' },
     ],
     // Higher-quality default so logos/fills don't look compressed on retina.
     qualities: [75, 85, 90, 100],

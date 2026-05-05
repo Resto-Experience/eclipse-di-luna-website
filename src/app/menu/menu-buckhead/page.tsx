@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { MenuPage } from '@/components/sections/MenuPage';
 import { getLocation } from '@/data/locations';
-import type { LocationMenu } from '@/types/menu';
-import menuJson from '@/data/menus/buckhead.json';
+import { getLocationMenu } from '@/lib/menu-db';
 
 const location = getLocation('buckhead');
-const menu = menuJson as LocationMenu;
+
+export const dynamic = 'force-dynamic';
 
 const TITLE = 'Buckhead Tapas & Cocktails Menu';
 const DESCRIPTION =
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function MenuBuckheadPage() {
+export default async function MenuBuckheadPage() {
+  const menu = await getLocationMenu('buckhead');
   return <MenuPage location={location} menu={menu} />;
 }

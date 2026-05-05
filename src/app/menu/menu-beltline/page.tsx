@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { MenuPage } from '@/components/sections/MenuPage';
 import { getLocation } from '@/data/locations';
-import type { LocationMenu } from '@/types/menu';
-import menuJson from '@/data/menus/beltline.json';
+import { getLocationMenu } from '@/lib/menu-db';
 
 const location = getLocation('beltline');
-const menu = menuJson as LocationMenu;
+
+export const dynamic = 'force-dynamic';
 
 const TITLE = 'Beltline Tapas & Cocktails Menu';
 const DESCRIPTION =
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function MenuBeltlinePage() {
+export default async function MenuBeltlinePage() {
+  const menu = await getLocationMenu('beltline');
   return <MenuPage location={location} menu={menu} />;
 }
