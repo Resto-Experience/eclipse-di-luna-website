@@ -62,12 +62,13 @@ const NAME_FIRST_VARIANTS: ReadonlySet<string> = new Set([
 ]);
 
 // Reconstruct the original price string from the DB columns. Format choices:
-// - notes (e.g. "Market Price") wins as a non-numeric override
+// - notes wins ONLY when there's no real numeric price (base_price is null/0) —
+//   that's the "Market Price" fallback. When base_price > 0, notes is informational
+//   (e.g. "Optional: Creamy") and is exposed via MenuItem.notes instead.
 // - price_variants with ≥1 entry → "{price} {name} | {price} {name}"
 // - base_price + base_price_max range → "{min}-{max}"
 // - base_is_price_range without max → "Starting at {base_price}"
 // - plain base_price > 0 → "{base_price}"
-// - base_price === 0 (sentinel) and no other field → undefined
 function buildPriceString(row: {
   base_price: number | string | null;
   base_price_max: number | string | null;
@@ -75,7 +76,9 @@ function buildPriceString(row: {
   price_variants: unknown;
   notes: string | null;
 }): string | undefined {
-  if (row.notes && row.notes.trim()) return row.notes.trim();
+  const baseNum = row.base_price == null ? null : Number(row.base_price);
+  const hasNumericPrice = baseNum != null && baseNum > 0;
+  if (!hasNumericPrice && row.notes && row.notes.trim()) return row.notes.trim();
 
   if (Array.isArray(row.price_variants) && row.price_variants.length) {
     const parts = (row.price_variants as Array<{ name?: string; price?: number | string }>)
@@ -138,6 +141,10 @@ async function fetchLocationMenu(slug: LocationSlug): Promise<LocationMenu> {
       .order('sort_order', { ascending: true });
     if (itemErr) throw new Error(`items query failed: ${itemErr.message}`);
     for (const row of items ?? []) {
+      // Notes is informational (rendered separately) only when there's a real price.
+      // When base_price is null/0, notes is the price-display fallback handled by buildPriceString.
+      const baseNum = row.base_price == null ? null : Number(row.base_price);
+      const itemNotes = baseNum != null && baseNum > 0 && row.notes ? row.notes.trim() : undefined;
       const item: MenuItem = {
         name: row.name,
         description: row.description ?? undefined,
@@ -145,6 +152,7 @@ async function fetchLocationMenu(slug: LocationSlug): Promise<LocationMenu> {
         image: row.image_url ?? undefined,
         tags: buildTags(row),
         subtitle: buildSubtitle(row.tags),
+        notes: itemNotes || undefined,
       };
       const arr = itemsByCategory.get(row.category_id) ?? [];
       arr.push(item);
