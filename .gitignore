@@ -65,3 +65,6 @@ next-env.d.ts
 # Claude Code tooling
 .atl/
 .claude/
+
+# Memory export (local-only, synced to Obsidian)
+MEMORY-EXPORT.md
